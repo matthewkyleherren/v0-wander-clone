@@ -101,3 +101,136 @@ export const reviewsQuery = groq`
     "authorInitial": upper(substring(author, 0, 1))
   }
 `
+
+// Get home page data
+export const homePageQuery = groq`
+  *[_type == "homePage"][0] {
+    _id,
+    hero {
+      heading,
+      subheading,
+      "backgroundImage": backgroundImage.asset->url,
+      trustBadges[] {
+        icon,
+        text
+      }
+    },
+    categories[] {
+      name,
+      icon
+    },
+    wanderDifference {
+      title,
+      description,
+      features[] {
+        title,
+        description,
+        "image": image.asset->url
+      }
+    }
+  }
+`
+
+// Get sites page data
+export const sitesPageQuery = groq`
+  *[_type == "sitesPage"][0] {
+    _id,
+    hero {
+      heading,
+      subheading,
+      ctaText,
+      stats[] {
+        value,
+        label
+      }
+    },
+    valueProps[] {
+      icon,
+      title,
+      description
+    },
+    brandingSection {
+      title,
+      description,
+      "image": image.asset->url
+    },
+    conversionsSection {
+      title,
+      description,
+      "image": image.asset->url
+    },
+    checkoutSection {
+      title,
+      description,
+      "image": image.asset->url
+    },
+    integrationsSection {
+      title,
+      description,
+      integrations[] {
+        name,
+        "logo": logo.asset->url
+      }
+    },
+    auditSection {
+      title,
+      description,
+      ctaText
+    },
+    technologyFeatures[] {
+      icon,
+      title,
+      description
+    },
+    howItWorksSteps[] {
+      number,
+      title,
+      description
+    },
+    pricingPlans[] {
+      name,
+      price,
+      description,
+      features,
+      ctaText,
+      featured
+    },
+    finalCta {
+      title,
+      description,
+      ctaText
+    }
+  }
+`
+
+// Get site settings data
+export const siteSettingsQuery = groq`
+  *[_type == "siteSettings"][0] {
+    _id,
+    siteName,
+    "logo": logo.asset->url,
+    headerNavigation[] {
+      label,
+      href
+    },
+    footer {
+      columns[] {
+        title,
+        links[] {
+          label,
+          href
+        }
+      },
+      newsletter {
+        title,
+        description,
+        buttonText
+      },
+      socialLinks[] {
+        platform,
+        url
+      },
+      copyrightText
+    }
+  }
+`

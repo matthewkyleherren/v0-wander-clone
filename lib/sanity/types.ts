@@ -48,3 +48,106 @@ export interface Review {
   verified?: boolean
   authorInitial?: string
 }
+
+export interface HomePage {
+  _id: string
+  hero: {
+    heading: string
+    subheading: string
+    backgroundImage?: string
+    trustBadges?: { icon: string; text: string }[]
+  }
+  categories?: { name: string; icon: string }[]
+  wanderDifference?: {
+    title: string
+    description: string
+    features: {
+      title: string
+      description: string
+      image: string
+    }[]
+  }
+}
+
+export interface SitesPage {
+  _id: string
+  hero: {
+    heading: string
+    subheading: string
+    ctaText: string
+    stats: { value: string; label: string }[]
+  }
+  valueProps: {
+    icon: string
+    title: string
+    description: string
+  }[]
+  brandingSection: {
+    title: string
+    description: string
+    image: string
+  }
+  conversionsSection: {
+    title: string
+    description: string
+    image: string
+  }
+  checkoutSection: {
+    title: string
+    description: string
+    image: string
+  }
+  integrationsSection: {
+    title: string
+    description: string
+    integrations: { name: string; logo: string }[]
+  }
+  auditSection: {
+    title: string
+    description: string
+    ctaText: string
+  }
+  technologyFeatures: {
+    icon: string
+    title: string
+    description: string
+  }[]
+  howItWorksSteps: {
+    number: string
+    title: string
+    description: string
+  }[]
+  pricingPlans: {
+    name: string
+    price: string
+    description: string
+    features: string[]
+    ctaText: string
+    featured: boolean
+  }[]
+  finalCta: {
+    title: string
+    description: string
+    ctaText: string
+  }
+}
+
+export interface SiteSettings {
+  _id: string
+  siteName: string
+  logo?: string
+  headerNavigation?: { label: string; href: string }[]
+  footer?: {
+    columns: {
+      title: string
+      links: { label: string; href: string }[]
+    }[]
+    newsletter: {
+      title: string
+      description: string
+      buttonText: string
+    }
+    socialLinks: { platform: string; url: string }[]
+    copyrightText: string
+  }
+}

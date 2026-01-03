@@ -1,4 +1,4 @@
-import type { Property, PropertyCard, Review } from "./types"
+import type { Property, PropertyCard, Review, HomePage, SitesPage, SiteSettings } from "./types"
 
 const projectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID
 const dataset = process.env.NEXT_PUBLIC_SANITY_DATASET || "production"
@@ -194,5 +194,159 @@ export async function getReviewsByPropertyId(propertyId: string): Promise<Review
   } catch (error) {
     console.error("[v0] Error fetching reviews:", error)
     return []
+  }
+}
+
+// Fetch home page content
+export async function getHomePage(): Promise<HomePage | null> {
+  try {
+    const query = `*[_type == "homePage"][0] {
+      _id,
+      hero {
+        heading,
+        subheading,
+        "backgroundImage": backgroundImage.asset->url,
+        trustBadges[] {
+          icon,
+          text
+        }
+      },
+      categories[] {
+        name,
+        icon
+      },
+      wanderDifference {
+        title,
+        description,
+        features[] {
+          title,
+          description,
+          "image": image.asset->url
+        }
+      }
+    }`
+    const result = await sanityFetch<HomePage | null>(query)
+    return result
+  } catch (error) {
+    console.error("[v0] Error fetching home page:", error)
+    return null
+  }
+}
+
+// Fetch sites page content
+export async function getSitesPage(): Promise<SitesPage | null> {
+  try {
+    const query = `*[_type == "sitesPage"][0] {
+      _id,
+      hero {
+        heading,
+        subheading,
+        ctaText,
+        stats[] {
+          value,
+          label
+        }
+      },
+      valueProps[] {
+        icon,
+        title,
+        description
+      },
+      brandingSection {
+        title,
+        description,
+        "image": image.asset->url
+      },
+      conversionsSection {
+        title,
+        description,
+        "image": image.asset->url
+      },
+      checkoutSection {
+        title,
+        description,
+        "image": image.asset->url
+      },
+      integrationsSection {
+        title,
+        description,
+        integrations[] {
+          name,
+          "logo": logo.asset->url
+        }
+      },
+      auditSection {
+        title,
+        description,
+        ctaText
+      },
+      technologyFeatures[] {
+        icon,
+        title,
+        description
+      },
+      howItWorksSteps[] {
+        number,
+        title,
+        description
+      },
+      pricingPlans[] {
+        name,
+        price,
+        description,
+        features,
+        ctaText,
+        featured
+      },
+      finalCta {
+        title,
+        description,
+        ctaText
+      }
+    }`
+    const result = await sanityFetch<SitesPage | null>(query)
+    return result
+  } catch (error) {
+    console.error("[v0] Error fetching sites page:", error)
+    return null
+  }
+}
+
+// Fetch site settings
+export async function getSiteSettings(): Promise<SiteSettings | null> {
+  try {
+    const query = `*[_type == "siteSettings"][0] {
+      _id,
+      siteName,
+      "logo": logo.asset->url,
+      headerNavigation[] {
+        label,
+        href
+      },
+      footer {
+        columns[] {
+          title,
+          links[] {
+            label,
+            href
+          }
+        },
+        newsletter {
+          title,
+          description,
+          buttonText
+        },
+        socialLinks[] {
+          platform,
+          url
+        },
+        copyrightText
+      }
+    }`
+    const result = await sanityFetch<SiteSettings | null>(query)
+    return result
+  } catch (error) {
+    console.error("[v0] Error fetching site settings:", error)
+    return null
   }
 }
