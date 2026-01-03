@@ -56,15 +56,14 @@ export async function GET() {
   try {
     console.log("[v0] Starting comprehensive seed...")
 
-    // Upload images
     console.log("[v0] Uploading images to Sanity CDN...")
-    const heroImageRef = await uploadImageToSanity("/luxury-vacation-rental.jpg")
-    const feature1ImageRef = await uploadImageToSanity("/happy-family-walking-outside-beautiful-vacation-ho.jpg")
-    const feature2ImageRef = await uploadImageToSanity("/luxury-villa-with-infinity-pool-at-sunset-ocean-vi.jpg")
-    const feature3ImageRef = await uploadImageToSanity("/concierge-service-luxury-hotel-staff-smiling.jpg")
-    const feature4ImageRef = await uploadImageToSanity("/stunning-mountain-view-from-luxury-cabin-window-su.jpg")
+    const heroImageRef = await uploadImageToSanity("/luxury-vacation-rental-hero.jpg")
+    const feature1ImageRef = await uploadImageToSanity("/happy-family-walking-outside-vacation-home.jpg")
+    const feature2ImageRef = await uploadImageToSanity("/luxury-villa-infinity-pool-sunset-ocean.jpg")
+    const feature3ImageRef = await uploadImageToSanity("/concierge-service-luxury-hotel-staff.jpg")
+    const feature4ImageRef = await uploadImageToSanity("/mountain-view-luxury-cabin-window.jpg")
     const feature5ImageRef = await uploadImageToSanity("/pristine-clean-luxury-bedroom-white-linens.jpg")
-    const feature6ImageRef = await uploadImageToSanity("/smart-home-security-system-modern-house.jpg")
+    const feature6ImageRef = await uploadImageToSanity("/smart-home-security-system-modern.jpg")
 
     console.log("[v0] Images uploaded successfully")
 
