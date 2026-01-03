@@ -1,8 +1,27 @@
 import { Button } from "@/components/ui/button"
 import { Check } from "lucide-react"
 
-export function SitesPricing() {
-  const plans = [
+interface SitesPricingProps {
+  data?: {
+    eyebrow?: string
+    title?: string
+    subtitle?: string
+    plans?: Array<{
+      name: string
+      price: string
+      period: string
+      description: string
+      subDescription?: string
+      features: string[]
+      cta: string
+      ctaVariant?: "default" | "outline"
+      secondaryCta?: string
+    }>
+  }
+}
+
+export function SitesPricing({ data }: SitesPricingProps) {
+  const defaultPlans = [
     {
       name: "Free",
       price: "$0",
@@ -30,13 +49,17 @@ export function SitesPricing() {
     },
   ]
 
+  const plans = data?.plans || defaultPlans
+
   return (
     <section className="py-20 bg-background">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
-          <div className="text-sm text-muted-foreground mb-2">Simple pricing</div>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight mb-4">Transparent, always.</h2>
-          <p className="text-xl text-muted-foreground">Start for free, scale as you grow.</p>
+          <div className="text-sm text-muted-foreground mb-2">{data?.eyebrow || "Simple pricing"}</div>
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight mb-4">
+            {data?.title || "Transparent, always."}
+          </h2>
+          <p className="text-xl text-muted-foreground">{data?.subtitle || "Start for free, scale as you grow."}</p>
         </div>
 
         <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
@@ -58,7 +81,7 @@ export function SitesPricing() {
                 ))}
               </ul>
               <div className="space-y-2">
-                <Button className="w-full" variant={plan.ctaVariant} size="lg">
+                <Button className="w-full" variant={plan.ctaVariant || "default"} size="lg">
                   {plan.cta}
                 </Button>
                 {plan.secondaryCta && (

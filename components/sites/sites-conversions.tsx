@@ -1,33 +1,48 @@
 import Image from "next/image"
 
-export function SitesConversions() {
-  const features = [
+interface SitesConversionsProps {
+  data?: {
+    eyebrow?: string
+    title?: string
+    subtitle?: string
+    features?: Array<{
+      title: string
+      description: string
+      image: string
+    }>
+  }
+}
+
+export function SitesConversions({ data }: SitesConversionsProps) {
+  const defaultFeatures = [
     {
       title: "Seamless search and filters",
       description: "Make it easy for guests to discover the perfect property in seconds",
-      image: "/search-and-filters-interface.jpg",
+      image: "/placeholder.svg?height=600&width=800",
     },
     {
       title: "Showcase your homes at their best",
       description: "Stunning visuals, thoughtful details - everything guests need to feel excited.",
-      image: "/beautiful-property-listing-with-photos.jpg",
+      image: "/placeholder.svg?height=600&width=800",
     },
     {
       title: "Transparent pricing and availability",
       description: "Transparency at every step builds confidence and trust.",
-      image: "/calendar-with-pricing-and-availability.jpg",
+      image: "/placeholder.svg?height=600&width=800",
     },
   ]
+
+  const features = data?.features || defaultFeatures
 
   return (
     <section className="py-20 bg-background">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-4">
-          <div className="text-sm text-muted-foreground mb-2">Smarter conversion</div>
+          <div className="text-sm text-muted-foreground mb-2">{data?.eyebrow || "Smarter conversion"}</div>
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight mb-4">
-            More bookings. More earnings.
+            {data?.title || "More bookings. More earnings."}
           </h2>
-          <p className="text-xl text-muted-foreground">Continuous optimization, built in.</p>
+          <p className="text-xl text-muted-foreground">{data?.subtitle || "Continuous optimization, built in."}</p>
         </div>
 
         <div className="mt-16 space-y-16">

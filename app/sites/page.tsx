@@ -12,24 +12,27 @@ import { SitesTechnology } from "@/components/sites/sites-technology"
 import { SitesHowItWorks } from "@/components/sites/sites-how-it-works"
 import { SitesPricing } from "@/components/sites/sites-pricing"
 import { SitesCTA } from "@/components/sites/sites-cta"
+import { getSitesPage } from "@/lib/sanity/fetch"
 
-export default function SitesPage() {
+export default async function SitesPage() {
+  const sitesData = await getSitesPage()
+
   return (
     <ThemeProvider>
       <div className="min-h-screen bg-background text-foreground">
         <Header />
         <main className="pt-14">
-          <SitesHero />
-          <SitesValueProps />
-          <SitesBranding />
-          <SitesConversions />
-          <SitesCheckout />
-          <SitesPMSIntegrations />
-          <SitesAudit />
-          <SitesTechnology />
-          <SitesHowItWorks />
-          <SitesPricing />
-          <SitesCTA />
+          <SitesHero data={sitesData?.hero} />
+          <SitesValueProps data={sitesData?.valueProps} />
+          <SitesBranding data={sitesData?.branding} />
+          <SitesConversions data={sitesData?.conversions} />
+          <SitesCheckout data={sitesData?.checkout} />
+          <SitesPMSIntegrations data={sitesData?.pmsIntegrations} />
+          <SitesAudit data={sitesData?.audit} />
+          <SitesTechnology data={sitesData?.technology} />
+          <SitesHowItWorks data={sitesData?.howItWorks} />
+          <SitesPricing data={sitesData?.pricing} />
+          <SitesCTA data={sitesData?.cta} />
         </main>
         <Footer />
       </div>
