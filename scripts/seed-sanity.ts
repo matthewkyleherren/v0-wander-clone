@@ -23,22 +23,32 @@ const client = createClient({
 async function uploadImageFromUrl(imageUrl, filename) {
   console.log(`[v0] Uploading image: ${filename}`)
 
-  const response = await fetch(imageUrl)
-  if (!response.ok) {
-    throw new Error(`Failed to fetch image: ${imageUrl}`)
-  }
+  try {
+    const response = await fetch(imageUrl)
+    if (!response.ok) {
+      throw new Error(`Failed to fetch image: ${imageUrl} - Status: ${response.status}`)
+    }
 
-  const buffer = await response.arrayBuffer()
-  const asset = await client.assets.upload("image", Buffer.from(buffer), {
-    filename,
-  })
+    const arrayBuffer = await response.arrayBuffer()
+    const uint8Array = new Uint8Array(arrayBuffer)
 
-  return {
-    _type: "image",
-    asset: {
-      _type: "reference",
-      _ref: asset._id,
-    },
+    const asset = await client.assets.upload("image", uint8Array, {
+      filename,
+      contentType: "image/jpeg",
+    })
+
+    console.log(`[v0] Uploaded: ${filename} -> ${asset._id}`)
+
+    return {
+      _type: "image",
+      asset: {
+        _type: "reference",
+        _ref: asset._id,
+      },
+    }
+  } catch (error) {
+    console.error(`[v0] Error uploading ${filename}:`, error.message)
+    throw error
   }
 }
 
