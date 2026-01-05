@@ -604,7 +604,12 @@ async function seed() {
   console.log("[v0] Dataset:", dataset)
 
   try {
-    // Delete existing properties first
+    // Delete existing reviews first to remove references to properties
+    console.log("[v0] Deleting existing reviews...")
+    await client.delete({ query: '*[_type == "review"]' })
+    console.log("[v0] Existing reviews deleted")
+
+    // Delete existing properties
     console.log("[v0] Deleting existing properties...")
     await client.delete({ query: '*[_type == "property"]' })
     console.log("[v0] Existing properties deleted")
