@@ -653,41 +653,29 @@ const reviews = [
   },
 ]
 
-async function seed() {
-  console.log("Starting Sanity seed...")
-  console.log("Project ID:", projectId)
-  console.log("Dataset:", dataset)
+const baseUrl = process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : "http://localhost:3000"
 
-  if (!token) {
-    console.error("Error: SANITY_API_TOKEN is required to seed data")
-    return
-  }
+async function seed() {
+  console.log("[v0] Calling seed API route...")
 
   try {
-    // Delete existing documents first
-    console.log("Deleting existing properties...")
-    await client.delete({ query: '*[_type == "property"]' })
-    console.log("Deleting existing reviews...")
-    await client.delete({ query: '*[_type == "review"]' })
+    const response = await fetch(`${baseUrl}/api/seed`)
+    const data = await response.json()
 
-    // Create properties
-    console.log("Creating properties...")
-    for (const property of properties) {
-      const result = await client.create(property)
-      console.log(`Created property: ${result.name}`)
+    if (data.success) {
+      console.log("[v0] Seed completed successfully!")
+      console.log("[v0]", data.message)
+      if (data.imagesUploaded) {
+        console.log("[v0] Images uploaded:", data.imagesUploaded)
+      }
+    } else {
+      console.error("[v0] Seed failed:", data.error)
+      if (data.details) {
+        console.error("[v0] Details:", data.details)
+      }
     }
-
-    // Create reviews
-    console.log("Creating reviews...")
-    for (const review of reviews) {
-      const result = await client.create(review)
-      console.log(`Created review by: ${result.author}`)
-    }
-
-    console.log("Seed completed successfully!")
-    console.log(`Created ${properties.length} properties and ${reviews.length} reviews`)
   } catch (error) {
-    console.error("Error seeding data:", error)
+    console.error("[v0] Error calling seed API:", error)
   }
 }
 
