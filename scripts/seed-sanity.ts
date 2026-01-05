@@ -1,7 +1,7 @@
 import { createClient } from "@sanity/client"
 
 // Create a client with write access (requires token)
-const projectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID!
+const projectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID
 const dataset = process.env.NEXT_PUBLIC_SANITY_DATASET || "production"
 const token = process.env.SANITY_API_TOKEN
 
