@@ -24,26 +24,42 @@ async function uploadImageFromUrl(imageUrl, filename) {
   console.log(`[v0] Uploading image: ${filename}`)
 
   try {
-    const response = await fetch(imageUrl)
-    if (!response.ok) {
-      throw new Error(`Failed to fetch image: ${imageUrl} - Status: ${response.status}`)
+    // Fetch the image
+    const imageResponse = await fetch(imageUrl)
+    if (!imageResponse.ok) {
+      throw new Error(`Failed to fetch image: ${imageUrl} - Status: ${imageResponse.status}`)
     }
 
-    const arrayBuffer = await response.arrayBuffer()
-    const uint8Array = new Uint8Array(arrayBuffer)
+    // Get the image as a blob
+    const imageBlob = await imageResponse.blob()
 
-    const asset = await client.assets.upload("image", uint8Array, {
-      filename,
-      contentType: "image/jpeg",
+    // Upload directly to Sanity HTTP API
+    const uploadUrl = `https://${projectId}.api.sanity.io/v2024-01-01/assets/images/${dataset}?filename=${encodeURIComponent(filename)}`
+
+    const uploadResponse = await fetch(uploadUrl, {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": imageBlob.type || "image/jpeg",
+      },
+      body: imageBlob,
     })
 
-    console.log(`[v0] Uploaded: ${filename} -> ${asset._id}`)
+    if (!uploadResponse.ok) {
+      const errorText = await uploadResponse.text()
+      throw new Error(`Failed to upload to Sanity: ${uploadResponse.status} - ${errorText}`)
+    }
+
+    const result = await uploadResponse.json()
+    const assetId = result.document._id
+
+    console.log(`[v0] Uploaded: ${filename} -> ${assetId}`)
 
     return {
       _type: "image",
       asset: {
         _type: "reference",
-        _ref: asset._id,
+        _ref: assetId,
       },
     }
   } catch (error) {
