@@ -59,6 +59,8 @@ export default async function PropertyPage({ params }: PropertyPageProps) {
   let propertyData = null
   try {
     propertyData = await getPropertyBySlug(slug)
+    console.log("[v0] Property data from Sanity:", propertyData?.name)
+    console.log("[v0] Images from Sanity:", propertyData?.images)
   } catch (error) {
     console.log("Sanity not configured, using fallback data")
   }
@@ -83,6 +85,8 @@ export default async function PropertyPage({ params }: PropertyPageProps) {
     bedroomDetails: property.bedroomDetails?.length ? property.bedroomDetails : fallbackPropertyData.bedroomDetails,
     coordinates: property.coordinates || fallbackPropertyData.coordinates,
   }
+
+  console.log("[v0] Final images being used:", displayData.images)
 
   return (
     <div className="min-h-screen bg-background pb-24">

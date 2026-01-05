@@ -34,6 +34,9 @@ function mapPropertyCard(doc: Record<string, unknown>): PropertyCard {
 
   if (doc.mainImageUrl && typeof doc.mainImageUrl === "string") {
     imageUrl = doc.mainImageUrl
+  } else if (doc.mainImage && typeof doc.mainImage === "string") {
+    // Direct string path stored in mainImage field
+    imageUrl = doc.mainImage
   } else if (doc.image && typeof doc.image === "string" && doc.image.startsWith("http")) {
     imageUrl = doc.image
   }
@@ -64,6 +67,7 @@ export async function getProperties(): Promise<PropertyCard[]> {
       rating,
       reviewCount,
       "mainImageUrl": mainImage.asset->url,
+      mainImage,
       image,
       amenities
     }`
@@ -91,12 +95,15 @@ export async function getPropertyBySlug(slug: string): Promise<Property | null> 
       rating,
       reviewCount,
       maxGuests,
+      guests,
       bedrooms,
       beds,
       bathrooms,
       sqft,
       "mainImageUrl": mainImage.asset->url,
+      mainImage,
       "imageUrls": images[].asset->url,
+      images,
       amenities,
       highlights,
       features,
@@ -110,18 +117,39 @@ export async function getPropertyBySlug(slug: string): Promise<Property | null> 
       eventsAllowed,
       coordinates,
       featured,
-      categories
+      categories,
+      bedroomDetails
     }`
     const result = await sanityFetch<Record<string, unknown> | null>(query, { slug })
 
     if (!result) return null
 
+    let mainImage = "/luxury-vacation-rental.jpg"
+    if (result.mainImageUrl && typeof result.mainImageUrl === "string") {
+      mainImage = result.mainImageUrl
+    } else if (result.mainImage && typeof result.mainImage === "string") {
+      mainImage = result.mainImage
+    }
+
+    let galleryImages: string[] = []
+    const imageUrls = result.imageUrls as (string | null)[] | undefined
+    const directImages = result.images as (string | object)[] | undefined
+
+    // Check if imageUrls has valid Sanity asset URLs
+    if (imageUrls && Array.isArray(imageUrls) && imageUrls.some((url) => url !== null)) {
+      galleryImages = imageUrls.filter((url): url is string => url !== null)
+    }
+    // Otherwise check if images contains direct string paths
+    else if (directImages && Array.isArray(directImages)) {
+      galleryImages = directImages.filter((img): img is string => typeof img === "string")
+    }
+
     // Map to Property type with correct image fields
     return {
       ...result,
-      image: result.mainImageUrl as string,
-      images: (result.imageUrls as string[]) || [],
-      guests: result.maxGuests,
+      image: mainImage,
+      images: galleryImages.length > 0 ? galleryImages : undefined,
+      guests: result.guests || result.maxGuests,
     } as Property
   } catch (error) {
     console.error("[v0] Error fetching property:", error)
