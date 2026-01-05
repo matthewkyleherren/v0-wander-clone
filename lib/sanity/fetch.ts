@@ -4,7 +4,7 @@ const projectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID
 const dataset = process.env.NEXT_PUBLIC_SANITY_DATASET || "production"
 
 async function sanityFetch<T>(query: string, params: Record<string, string> = {}): Promise<T> {
-  const url = new URL(`https://${projectId}.api.sanity.io/v2024-01-01/data/query/${dataset}`)
+  const url = new URL(`https://${projectId}.apicdn.sanity.io/v2024-01-01/data/query/${dataset}`)
   url.searchParams.set("query", query)
 
   for (const [key, value] of Object.entries(params)) {
@@ -30,16 +30,7 @@ async function sanityFetch<T>(query: string, params: Record<string, string> = {}
 }
 
 function mapPropertyCard(doc: Record<string, unknown>): PropertyCard {
-  let imageUrl = "/luxury-vacation-rental.jpg"
-
-  if (doc.mainImageUrl && typeof doc.mainImageUrl === "string") {
-    imageUrl = doc.mainImageUrl
-  } else if (doc.mainImage && typeof doc.mainImage === "string") {
-    // Direct string path stored in mainImage field
-    imageUrl = doc.mainImage
-  } else if (doc.image && typeof doc.image === "string" && doc.image.startsWith("http")) {
-    imageUrl = doc.image
-  }
+  const imageUrl = (doc.mainImageUrl as string) || "/luxury-vacation-rental.jpg"
 
   return {
     _id: doc._id as string,
@@ -67,8 +58,6 @@ export async function getProperties(): Promise<PropertyCard[]> {
       rating,
       reviewCount,
       "mainImageUrl": mainImage.asset->url,
-      mainImage,
-      image,
       amenities
     }`
     const result = await sanityFetch<Record<string, unknown>[]>(query)
@@ -101,9 +90,7 @@ export async function getPropertyBySlug(slug: string): Promise<Property | null> 
       bathrooms,
       sqft,
       "mainImageUrl": mainImage.asset->url,
-      mainImage,
       "imageUrls": images[].asset->url,
-      images,
       amenities,
       highlights,
       features,
@@ -118,31 +105,18 @@ export async function getPropertyBySlug(slug: string): Promise<Property | null> 
       coordinates,
       featured,
       categories,
-      bedroomDetails
+      "bedroomDetails": bedroomDetails[] {
+        name,
+        beds,
+        "image": image.asset->url
+      }
     }`
     const result = await sanityFetch<Record<string, unknown> | null>(query, { slug })
 
     if (!result) return null
 
-    let mainImage = "/luxury-vacation-rental.jpg"
-    if (result.mainImageUrl && typeof result.mainImageUrl === "string") {
-      mainImage = result.mainImageUrl
-    } else if (result.mainImage && typeof result.mainImage === "string") {
-      mainImage = result.mainImage
-    }
-
-    let galleryImages: string[] = []
-    const imageUrls = result.imageUrls as (string | null)[] | undefined
-    const directImages = result.images as (string | object)[] | undefined
-
-    // Check if imageUrls has valid Sanity asset URLs
-    if (imageUrls && Array.isArray(imageUrls) && imageUrls.some((url) => url !== null)) {
-      galleryImages = imageUrls.filter((url): url is string => url !== null)
-    }
-    // Otherwise check if images contains direct string paths
-    else if (directImages && Array.isArray(directImages)) {
-      galleryImages = directImages.filter((img): img is string => typeof img === "string")
-    }
+    const mainImage = (result.mainImageUrl as string) || "/luxury-vacation-rental.jpg"
+    const galleryImages = (result.imageUrls as string[]) || []
 
     // Map to Property type with correct image fields
     return {
@@ -150,6 +124,7 @@ export async function getPropertyBySlug(slug: string): Promise<Property | null> 
       image: mainImage,
       images: galleryImages.length > 0 ? galleryImages : undefined,
       guests: result.guests || result.maxGuests,
+      bedroomDetails: result.bedroomDetails,
     } as Property
   } catch (error) {
     console.error("[v0] Error fetching property:", error)

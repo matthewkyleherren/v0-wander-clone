@@ -20,11 +20,35 @@ const client = createClient({
   apiVersion: "2024-01-01",
 })
 
-const properties = [
+async function uploadImageFromUrl(
+  imageUrl: string,
+  filename: string,
+): Promise<{ _type: "image"; asset: { _type: "reference"; _ref: string } }> {
+  console.log(`[v0] Uploading image: ${filename}`)
+
+  const response = await fetch(imageUrl)
+  if (!response.ok) {
+    throw new Error(`Failed to fetch image: ${imageUrl}`)
+  }
+
+  const buffer = await response.arrayBuffer()
+  const asset = await client.assets.upload("image", Buffer.from(buffer), {
+    filename,
+  })
+
+  return {
+    _type: "image",
+    asset: {
+      _type: "reference",
+      _ref: asset._id,
+    },
+  }
+}
+
+const propertiesData = [
   {
-    _type: "property",
     name: "Inlet Beach Serenity",
-    slug: { _type: "slug", current: "inlet-beach-serenity" },
+    slug: "inlet-beach-serenity",
     location: "Inlet Beach, Florida",
     pricePerNight: 466,
     rating: 4.9,
@@ -36,13 +60,13 @@ const properties = [
     bedrooms: 4,
     bathrooms: 3.5,
     sqft: 3200,
-    mainImage: "/luxury-beach-house-with-lake-view-florida.jpg",
-    images: [
-      "/luxury-beach-house-exterior-florida.jpg",
-      "/modern-living-room-beach-house.jpg",
-      "/luxury-bedroom-with-ceiling-fan.jpg",
-      "/gourmet-kitchen-beach-house.jpg",
-      "/outdoor-patio-lake-view.jpg",
+    mainImageUrl: "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1200&h=800&fit=crop",
+    imageUrls: [
+      "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1200&h=800&fit=crop",
+      "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1200&h=800&fit=crop",
+      "https://images.unsplash.com/photo-1616594039964-ae9021a400a0?w=1200&h=800&fit=crop",
+      "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=1200&h=800&fit=crop",
+      "https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?w=1200&h=800&fit=crop",
     ],
     featured: true,
     categories: ["Beach", "Lake", "Family"],
@@ -68,26 +92,16 @@ const properties = [
       { icon: "bike", label: "Bicycle" },
     ],
     bedroomDetails: [
-      {
-        name: "Bedroom 1",
-        beds: "1 king bed",
-        image: "/luxury-master-bedroom-king-bed.jpg",
-      },
-      {
-        name: "Bedroom 2",
-        beds: "1 king bed",
-        image: "/guest-bedroom-king-bed-modern.jpg",
-      },
-      {
-        name: "Bedroom 3",
-        beds: "2 queen beds",
-        image: "/bedroom-with-two-queen-beds.jpg",
-      },
-      {
-        name: "Bedroom 4",
-        beds: "2 twin beds",
-        image: "/bedroom-with-twin-beds-coastal.jpg",
-      },
+      { name: "Bedroom 1", beds: "1 king bed" },
+      { name: "Bedroom 2", beds: "1 king bed" },
+      { name: "Bedroom 3", beds: "2 queen beds" },
+      { name: "Bedroom 4", beds: "2 twin beds" },
+    ],
+    bedroomImageUrls: [
+      "https://images.unsplash.com/photo-1616594039964-ae9021a400a0?w=600&h=400&fit=crop",
+      "https://images.unsplash.com/photo-1618773928121-c32242e63f39?w=600&h=400&fit=crop",
+      "https://images.unsplash.com/photo-1560185007-cde436f6a4d0?w=600&h=400&fit=crop",
+      "https://images.unsplash.com/photo-1595526114035-0d45ed16cfbf?w=600&h=400&fit=crop",
     ],
     coordinates: { lat: 30.2849, lng: -86.0039 },
     houseRules: [
@@ -117,9 +131,8 @@ const properties = [
     ],
   },
   {
-    _type: "property",
     name: "Malibu Oceanfront",
-    slug: { _type: "slug", current: "malibu-oceanfront" },
+    slug: "malibu-oceanfront",
     location: "Malibu, California",
     pricePerNight: 892,
     rating: 4.95,
@@ -131,13 +144,13 @@ const properties = [
     bedrooms: 5,
     bathrooms: 4.5,
     sqft: 4500,
-    mainImage: "/luxury-malibu-oceanfront-house.jpg",
-    images: [
-      "/malibu-beach-house-exterior.jpg",
-      "/infinity-pool-ocean-view-malibu.jpg",
-      "/modern-luxury-living-room-ocean-view.jpg",
-      "/master-bedroom-ocean-view-balcony.jpg",
-      "/gourmet-kitchen-modern-luxury.jpg",
+    mainImageUrl: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=1200&h=800&fit=crop",
+    imageUrls: [
+      "https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=1200&h=800&fit=crop",
+      "https://images.unsplash.com/photo-1580587771525-78b9dba3b914?w=1200&h=800&fit=crop",
+      "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1200&h=800&fit=crop",
+      "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=1200&h=800&fit=crop",
+      "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?w=1200&h=800&fit=crop",
     ],
     featured: true,
     categories: ["Beach", "Ocean", "Luxury"],
@@ -161,31 +174,18 @@ const properties = [
       { icon: "pool", label: "Infinity Pool" },
     ],
     bedroomDetails: [
-      {
-        name: "Primary Suite",
-        beds: "1 king bed",
-        image: "/placeholder.svg?height=400&width=600",
-      },
-      {
-        name: "Guest Suite 1",
-        beds: "1 king bed",
-        image: "/placeholder.svg?height=400&width=600",
-      },
-      {
-        name: "Guest Suite 2",
-        beds: "1 queen bed",
-        image: "/placeholder.svg?height=400&width=600",
-      },
-      {
-        name: "Bunk Room",
-        beds: "4 twin beds",
-        image: "/placeholder.svg?height=400&width=600",
-      },
-      {
-        name: "Pool House",
-        beds: "1 queen bed",
-        image: "/placeholder.svg?height=400&width=600",
-      },
+      { name: "Primary Suite", beds: "1 king bed" },
+      { name: "Guest Suite 1", beds: "1 king bed" },
+      { name: "Guest Suite 2", beds: "1 queen bed" },
+      { name: "Bunk Room", beds: "4 twin beds" },
+      { name: "Pool House", beds: "1 queen bed" },
+    ],
+    bedroomImageUrls: [
+      "https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?w=600&h=400&fit=crop",
+      "https://images.unsplash.com/photo-1560185007-cde436f6a4d0?w=600&h=400&fit=crop",
+      "https://images.unsplash.com/photo-1617325247661-675ab4b64ae2?w=600&h=400&fit=crop",
+      "https://images.unsplash.com/photo-1595526114035-0d45ed16cfbf?w=600&h=400&fit=crop",
+      "https://images.unsplash.com/photo-1618773928121-c32242e63f39?w=600&h=400&fit=crop",
     ],
     coordinates: { lat: 34.0259, lng: -118.7798 },
     houseRules: [
@@ -215,9 +215,8 @@ const properties = [
     ],
   },
   {
-    _type: "property",
     name: "Aspen Mountain Lodge",
-    slug: { _type: "slug", current: "aspen-mountain-lodge" },
+    slug: "aspen-mountain-lodge",
     location: "Aspen, Colorado",
     pricePerNight: 1250,
     rating: 4.98,
@@ -229,13 +228,13 @@ const properties = [
     bedrooms: 6,
     bathrooms: 5.5,
     sqft: 5800,
-    mainImage: "/placeholder.svg?height=800&width=1200",
-    images: [
-      "/placeholder.svg?height=800&width=1200",
-      "/placeholder.svg?height=800&width=1200",
-      "/placeholder.svg?height=800&width=1200",
-      "/placeholder.svg?height=800&width=1200",
-      "/placeholder.svg?height=800&width=1200",
+    mainImageUrl: "https://images.unsplash.com/photo-1518780664697-55e3ad937233?w=1200&h=800&fit=crop",
+    imageUrls: [
+      "https://images.unsplash.com/photo-1542718610-a1d656d1884c?w=1200&h=800&fit=crop",
+      "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=1200&h=800&fit=crop",
+      "https://images.unsplash.com/photo-1484154218962-a197022b5858?w=1200&h=800&fit=crop",
+      "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1200&h=800&fit=crop",
+      "https://images.unsplash.com/photo-1610641818989-c2051b5e2cfd?w=1200&h=800&fit=crop",
     ],
     featured: true,
     categories: ["Ski", "Mountain", "Luxury"],
@@ -259,36 +258,20 @@ const properties = [
       { icon: "hot-tub", label: "Hot Tub" },
     ],
     bedroomDetails: [
-      {
-        name: "Master Suite",
-        beds: "1 king bed",
-        image: "/placeholder.svg?height=400&width=600",
-      },
-      {
-        name: "Junior Suite",
-        beds: "1 king bed",
-        image: "/placeholder.svg?height=400&width=600",
-      },
-      {
-        name: "Guest Room 1",
-        beds: "1 queen bed",
-        image: "/placeholder.svg?height=400&width=600",
-      },
-      {
-        name: "Guest Room 2",
-        beds: "1 queen bed",
-        image: "/placeholder.svg?height=400&width=600",
-      },
-      {
-        name: "Bunk Room",
-        beds: "4 twin beds",
-        image: "/placeholder.svg?height=400&width=600",
-      },
-      {
-        name: "Nanny Suite",
-        beds: "1 full bed",
-        image: "/placeholder.svg?height=400&width=600",
-      },
+      { name: "Master Suite", beds: "1 king bed" },
+      { name: "Junior Suite", beds: "1 king bed" },
+      { name: "Guest Room 1", beds: "1 queen bed" },
+      { name: "Guest Room 2", beds: "1 queen bed" },
+      { name: "Bunk Room", beds: "4 twin beds" },
+      { name: "Nanny Suite", beds: "1 full bed" },
+    ],
+    bedroomImageUrls: [
+      "https://images.unsplash.com/photo-1616594039964-ae9021a400a0?w=600&h=400&fit=crop",
+      "https://images.unsplash.com/photo-1618773928121-c32242e63f39?w=600&h=400&fit=crop",
+      "https://images.unsplash.com/photo-1560185007-cde436f6a4d0?w=600&h=400&fit=crop",
+      "https://images.unsplash.com/photo-1617325247661-675ab4b64ae2?w=600&h=400&fit=crop",
+      "https://images.unsplash.com/photo-1595526114035-0d45ed16cfbf?w=600&h=400&fit=crop",
+      "https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?w=600&h=400&fit=crop",
     ],
     coordinates: { lat: 39.1911, lng: -106.8175 },
     houseRules: [
@@ -318,9 +301,8 @@ const properties = [
     ],
   },
   {
-    _type: "property",
     name: "Maui Paradise Villa",
-    slug: { _type: "slug", current: "maui-paradise-villa" },
+    slug: "maui-paradise-villa",
     location: "Wailea, Maui",
     pricePerNight: 1450,
     rating: 4.97,
@@ -332,13 +314,13 @@ const properties = [
     bedrooms: 4,
     bathrooms: 4,
     sqft: 4200,
-    mainImage: "/placeholder.svg?height=800&width=1200",
-    images: [
-      "/placeholder.svg?height=800&width=1200",
-      "/placeholder.svg?height=800&width=1200",
-      "/placeholder.svg?height=800&width=1200",
-      "/placeholder.svg?height=800&width=1200",
-      "/placeholder.svg?height=800&width=1200",
+    mainImageUrl: "https://images.unsplash.com/photo-1499793983690-e29da59ef1c2?w=1200&h=800&fit=crop",
+    imageUrls: [
+      "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=1200&h=800&fit=crop",
+      "https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=1200&h=800&fit=crop",
+      "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1200&h=800&fit=crop",
+      "https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?w=1200&h=800&fit=crop",
+      "https://images.unsplash.com/photo-1600210492493-0946911123ea?w=1200&h=800&fit=crop",
     ],
     featured: true,
     categories: ["Hawaii", "Beach", "Tropical"],
@@ -362,26 +344,16 @@ const properties = [
       { icon: "pool", label: "Private Pool" },
     ],
     bedroomDetails: [
-      {
-        name: "Ocean Suite",
-        beds: "1 king bed",
-        image: "/placeholder.svg?height=400&width=600",
-      },
-      {
-        name: "Garden Suite",
-        beds: "1 king bed",
-        image: "/placeholder.svg?height=400&width=600",
-      },
-      {
-        name: "Pool Suite",
-        beds: "1 queen bed",
-        image: "/placeholder.svg?height=400&width=600",
-      },
-      {
-        name: "Guest Room",
-        beds: "2 twin beds",
-        image: "/placeholder.svg?height=400&width=600",
-      },
+      { name: "Ocean Suite", beds: "1 king bed" },
+      { name: "Garden Suite", beds: "1 king bed" },
+      { name: "Pool Suite", beds: "1 queen bed" },
+      { name: "Guest Room", beds: "2 twin beds" },
+    ],
+    bedroomImageUrls: [
+      "https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?w=600&h=400&fit=crop",
+      "https://images.unsplash.com/photo-1618773928121-c32242e63f39?w=600&h=400&fit=crop",
+      "https://images.unsplash.com/photo-1560185007-cde436f6a4d0?w=600&h=400&fit=crop",
+      "https://images.unsplash.com/photo-1595526114035-0d45ed16cfbf?w=600&h=400&fit=crop",
     ],
     coordinates: { lat: 20.6899, lng: -156.4421 },
     houseRules: [
@@ -411,9 +383,8 @@ const properties = [
     ],
   },
   {
-    _type: "property",
     name: "Joshua Tree Retreat",
-    slug: { _type: "slug", current: "joshua-tree-retreat" },
+    slug: "joshua-tree-retreat",
     location: "Joshua Tree, California",
     pricePerNight: 385,
     rating: 4.92,
@@ -425,13 +396,13 @@ const properties = [
     bedrooms: 3,
     bathrooms: 2,
     sqft: 2100,
-    mainImage: "/placeholder.svg?height=800&width=1200",
-    images: [
-      "/placeholder.svg?height=800&width=1200",
-      "/placeholder.svg?height=800&width=1200",
-      "/placeholder.svg?height=800&width=1200",
-      "/placeholder.svg?height=800&width=1200",
-      "/placeholder.svg?height=800&width=1200",
+    mainImageUrl: "https://images.unsplash.com/photo-1510798831971-661eb04b3739?w=1200&h=800&fit=crop",
+    imageUrls: [
+      "https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=1200&h=800&fit=crop",
+      "https://images.unsplash.com/photo-1527030280862-64c505d27636?w=1200&h=800&fit=crop",
+      "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1200&h=800&fit=crop",
+      "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=1200&h=800&fit=crop",
+      "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?w=1200&h=800&fit=crop",
     ],
     featured: false,
     categories: ["Desert", "Unique", "Stargazing"],
@@ -455,21 +426,14 @@ const properties = [
       { icon: "hot-tub", label: "Hot Tub" },
     ],
     bedroomDetails: [
-      {
-        name: "Master Bedroom",
-        beds: "1 king bed",
-        image: "/placeholder.svg?height=400&width=600",
-      },
-      {
-        name: "Guest Bedroom",
-        beds: "1 queen bed",
-        image: "/placeholder.svg?height=400&width=600",
-      },
-      {
-        name: "Bunk Room",
-        beds: "2 twin beds",
-        image: "/placeholder.svg?height=400&width=600",
-      },
+      { name: "Master Bedroom", beds: "1 king bed" },
+      { name: "Guest Bedroom", beds: "1 queen bed" },
+      { name: "Bunk Room", beds: "2 twin beds" },
+    ],
+    bedroomImageUrls: [
+      "https://images.unsplash.com/photo-1616594039964-ae9021a400a0?w=600&h=400&fit=crop",
+      "https://images.unsplash.com/photo-1618773928121-c32242e63f39?w=600&h=400&fit=crop",
+      "https://images.unsplash.com/photo-1595526114035-0d45ed16cfbf?w=600&h=400&fit=crop",
     ],
     coordinates: { lat: 34.1347, lng: -116.3131 },
     houseRules: [
@@ -499,9 +463,8 @@ const properties = [
     ],
   },
   {
-    _type: "property",
     name: "Lake Tahoe Chalet",
-    slug: { _type: "slug", current: "lake-tahoe-chalet" },
+    slug: "lake-tahoe-chalet",
     location: "Lake Tahoe, California",
     pricePerNight: 725,
     rating: 4.94,
@@ -513,13 +476,13 @@ const properties = [
     bedrooms: 5,
     bathrooms: 4,
     sqft: 3800,
-    mainImage: "/placeholder.svg?height=800&width=1200",
-    images: [
-      "/placeholder.svg?height=800&width=1200",
-      "/placeholder.svg?height=800&width=1200",
-      "/placeholder.svg?height=800&width=1200",
-      "/placeholder.svg?height=800&width=1200",
-      "/placeholder.svg?height=800&width=1200",
+    mainImageUrl: "https://images.unsplash.com/photo-1464146072230-91cabc968266?w=1200&h=800&fit=crop",
+    imageUrls: [
+      "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1200&h=800&fit=crop",
+      "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1200&h=800&fit=crop",
+      "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1200&h=800&fit=crop",
+      "https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?w=1200&h=800&fit=crop",
+      "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?w=1200&h=800&fit=crop",
     ],
     featured: false,
     categories: ["Lake", "Ski", "Mountain"],
@@ -543,31 +506,18 @@ const properties = [
       { icon: "ski", label: "Near Skiing" },
     ],
     bedroomDetails: [
-      {
-        name: "Lake View Master",
-        beds: "1 king bed",
-        image: "/placeholder.svg?height=400&width=600",
-      },
-      {
-        name: "Mountain Suite",
-        beds: "1 king bed",
-        image: "/placeholder.svg?height=400&width=600",
-      },
-      {
-        name: "Pine Room",
-        beds: "1 queen bed",
-        image: "/placeholder.svg?height=400&width=600",
-      },
-      {
-        name: "Bunk Room",
-        beds: "4 twin beds",
-        image: "/placeholder.svg?height=400&width=600",
-      },
-      {
-        name: "Lower Level Suite",
-        beds: "1 queen bed",
-        image: "/placeholder.svg?height=400&width=600",
-      },
+      { name: "Lake View Master", beds: "1 king bed" },
+      { name: "Mountain Suite", beds: "1 king bed" },
+      { name: "Pine Room", beds: "1 queen bed" },
+      { name: "Bunk Room", beds: "4 twin beds" },
+      { name: "Lower Level Suite", beds: "1 queen bed" },
+    ],
+    bedroomImageUrls: [
+      "https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?w=600&h=400&fit=crop",
+      "https://images.unsplash.com/photo-1618773928121-c32242e63f39?w=600&h=400&fit=crop",
+      "https://images.unsplash.com/photo-1560185007-cde436f6a4d0?w=600&h=400&fit=crop",
+      "https://images.unsplash.com/photo-1595526114035-0d45ed16cfbf?w=600&h=400&fit=crop",
+      "https://images.unsplash.com/photo-1617325247661-675ab4b64ae2?w=600&h=400&fit=crop",
     ],
     coordinates: { lat: 39.0968, lng: -120.0324 },
     houseRules: [
@@ -599,7 +549,7 @@ const properties = [
 ]
 
 async function seed() {
-  console.log("[v0] Starting Sanity seed...")
+  console.log("[v0] Starting Sanity seed with image uploads...")
   console.log("[v0] Project ID:", projectId)
   console.log("[v0] Dataset:", dataset)
 
@@ -614,14 +564,73 @@ async function seed() {
     await client.delete({ query: '*[_type == "property"]' })
     console.log("[v0] Existing properties deleted")
 
-    // Create new properties
-    console.log("[v0] Creating new properties...")
-    for (const property of properties) {
+    // Create new properties with uploaded images
+    console.log("[v0] Creating new properties with image uploads...")
+
+    for (const propertyData of propertiesData) {
+      console.log(`\n[v0] Processing property: ${propertyData.name}`)
+
+      // Upload main image
+      const mainImage = await uploadImageFromUrl(propertyData.mainImageUrl, `${propertyData.slug}-main.jpg`)
+
+      // Upload gallery images
+      const galleryImages = []
+      for (let i = 0; i < propertyData.imageUrls.length; i++) {
+        const image = await uploadImageFromUrl(propertyData.imageUrls[i], `${propertyData.slug}-gallery-${i + 1}.jpg`)
+        galleryImages.push(image)
+      }
+
+      // Upload bedroom images and build bedroomDetails with image references
+      const bedroomDetails = []
+      for (let i = 0; i < propertyData.bedroomDetails.length; i++) {
+        const bedroom = propertyData.bedroomDetails[i]
+        const imageUrl = propertyData.bedroomImageUrls[i]
+
+        let bedroomImage = null
+        if (imageUrl) {
+          bedroomImage = await uploadImageFromUrl(imageUrl, `${propertyData.slug}-bedroom-${i + 1}.jpg`)
+        }
+
+        bedroomDetails.push({
+          _key: `bedroom-${i}`,
+          name: bedroom.name,
+          beds: bedroom.beds,
+          image: bedroomImage,
+        })
+      }
+
+      // Create the property document
+      const property = {
+        _type: "property",
+        name: propertyData.name,
+        slug: { _type: "slug", current: propertyData.slug },
+        location: propertyData.location,
+        pricePerNight: propertyData.pricePerNight,
+        rating: propertyData.rating,
+        reviewCount: propertyData.reviewCount,
+        description: propertyData.description,
+        guests: propertyData.guests,
+        beds: propertyData.beds,
+        bedrooms: propertyData.bedrooms,
+        bathrooms: propertyData.bathrooms,
+        sqft: propertyData.sqft,
+        mainImage,
+        images: galleryImages.map((img, i) => ({ ...img, _key: `image-${i}` })),
+        featured: propertyData.featured,
+        categories: propertyData.categories,
+        amenities: propertyData.amenities,
+        highlights: propertyData.highlights.map((h, i) => ({ ...h, _key: `highlight-${i}` })),
+        bedroomDetails,
+        coordinates: propertyData.coordinates,
+        houseRules: propertyData.houseRules.map((r, i) => ({ ...r, _key: `rule-${i}` })),
+        features: propertyData.features.map((f, i) => ({ ...f, _key: `feature-${i}` })),
+      }
+
       const result = await client.create(property)
-      console.log(`[v0] Created property: ${property.name} (${result._id})`)
+      console.log(`[v0] Created property: ${propertyData.name} (${result._id})`)
     }
 
-    console.log(`[v0] Successfully seeded ${properties.length} properties!`)
+    console.log(`\n[v0] Successfully seeded ${propertiesData.length} properties with images!`)
   } catch (error) {
     console.error("[v0] Error seeding Sanity:", error)
     throw error
