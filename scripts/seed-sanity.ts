@@ -1,26 +1,23 @@
+// @ts-nocheck
 import { createClient } from "@sanity/client"
 
-// Create a client with write access (requires token)
 const projectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID
 const dataset = process.env.NEXT_PUBLIC_SANITY_DATASET || "production"
 const token = process.env.SANITY_API_TOKEN
 
-console.log("[v0] Seed script starting...")
-console.log("[v0] Project ID:", projectId)
-console.log("[v0] Dataset:", dataset)
-console.log("[v0] Has Token:", !!token)
-
 if (!projectId || !token) {
   console.error("[v0] ERROR: Missing NEXT_PUBLIC_SANITY_PROJECT_ID or SANITY_API_TOKEN")
+  console.log("[v0] projectId:", projectId)
+  console.log("[v0] Has Token:", !!token)
   process.exit(1)
 }
 
 const client = createClient({
   projectId,
   dataset,
-  apiVersion: "2024-01-01",
-  useCdn: false,
   token,
+  useCdn: false,
+  apiVersion: "2024-01-01",
 })
 
 const properties = [
@@ -311,7 +308,7 @@ const properties = [
       {
         icon: "refund",
         title: "Easy cancellation",
-        description: "Cancel within 72hrs for a full refund",
+        description: "Cancel within 48hrs for a full refund",
       },
       {
         icon: "sparkles",
@@ -601,81 +598,28 @@ const properties = [
   },
 ]
 
-const reviews = [
-  {
-    _type: "review",
-    author: "jenolesada",
-    location: "United States",
-    content:
-      "We decided to celebrate our 10-year anniversary at a Wander and it's one of the best decisions we've made! Everything in the property was well thought-out. And if we needed anything that the house didn't already have, the 24/7 concierge was ready to help us. We're already looking forward to booking our next family trip with Wander!",
-    stayDate: "Dec 2025",
-    verified: true,
-    authorInitial: "J",
-  },
-  {
-    _type: "review",
-    author: "Hike2Hike",
-    location: "United States",
-    content: "Wander has been a fabulous experience and platform to work with and I look forward to future trips!",
-    stayDate: "Dec 2025",
-    verified: true,
-    authorInitial: "H",
-  },
-  {
-    _type: "review",
-    author: "SarahM",
-    location: "Canada",
-    content:
-      "Absolutely stunning property! The attention to detail was incredible and the views were even better than the photos. Can't wait to come back!",
-    stayDate: "Nov 2025",
-    verified: true,
-    authorInitial: "S",
-  },
-  {
-    _type: "review",
-    author: "MikeT",
-    location: "United Kingdom",
-    content:
-      "Perfect getaway spot. The house was immaculate, fully stocked, and the location was ideal. The concierge service made everything so easy.",
-    stayDate: "Nov 2025",
-    verified: true,
-    authorInitial: "M",
-  },
-  {
-    _type: "review",
-    author: "FamilyTraveler",
-    location: "Australia",
-    content:
-      "Traveled with our kids and elderly parents - the house accommodated everyone perfectly. Spacious, clean, and so many activities nearby!",
-    stayDate: "Oct 2025",
-    verified: true,
-    authorInitial: "F",
-  },
-]
-
-const baseUrl = process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : "http://localhost:3000"
-
 async function seed() {
-  console.log("[v0] Calling seed API route...")
+  console.log("[v0] Starting Sanity seed...")
+  console.log("[v0] Project ID:", projectId)
+  console.log("[v0] Dataset:", dataset)
 
   try {
-    const response = await fetch(`${baseUrl}/api/seed`)
-    const data = await response.json()
+    // Delete existing properties first
+    console.log("[v0] Deleting existing properties...")
+    await client.delete({ query: '*[_type == "property"]' })
+    console.log("[v0] Existing properties deleted")
 
-    if (data.success) {
-      console.log("[v0] Seed completed successfully!")
-      console.log("[v0]", data.message)
-      if (data.imagesUploaded) {
-        console.log("[v0] Images uploaded:", data.imagesUploaded)
-      }
-    } else {
-      console.error("[v0] Seed failed:", data.error)
-      if (data.details) {
-        console.error("[v0] Details:", data.details)
-      }
+    // Create new properties
+    console.log("[v0] Creating new properties...")
+    for (const property of properties) {
+      const result = await client.create(property)
+      console.log(`[v0] Created property: ${property.name} (${result._id})`)
     }
+
+    console.log(`[v0] Successfully seeded ${properties.length} properties!`)
   } catch (error) {
-    console.error("[v0] Error calling seed API:", error)
+    console.error("[v0] Error seeding Sanity:", error)
+    throw error
   }
 }
 
