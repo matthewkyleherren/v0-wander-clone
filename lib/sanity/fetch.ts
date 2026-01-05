@@ -57,7 +57,7 @@ export async function getProperties(): Promise<PropertyCard[]> {
       pricePerNight,
       rating,
       reviewCount,
-      "mainImageUrl": mainImage.asset->url,
+      mainImageUrl,
       amenities
     }`
     const result = await sanityFetch<Record<string, unknown>[]>(query)
@@ -89,8 +89,8 @@ export async function getPropertyBySlug(slug: string): Promise<Property | null> 
       beds,
       bathrooms,
       sqft,
-      "mainImageUrl": mainImage.asset->url,
-      "imageUrls": images[].asset->url,
+      mainImageUrl,
+      imageUrls,
       amenities,
       highlights,
       features,
@@ -105,11 +105,7 @@ export async function getPropertyBySlug(slug: string): Promise<Property | null> 
       coordinates,
       featured,
       categories,
-      "bedroomDetails": bedroomDetails[] {
-        name,
-        beds,
-        "image": image.asset->url
-      }
+      bedroomDetails
     }`
     const result = await sanityFetch<Record<string, unknown> | null>(query, { slug })
 
@@ -144,7 +140,7 @@ export async function getFeaturedProperties(): Promise<PropertyCard[]> {
       pricePerNight,
       rating,
       reviewCount,
-      "mainImageUrl": mainImage.asset->url,
+      mainImageUrl,
       amenities,
       featured
     }`
@@ -168,7 +164,7 @@ export async function getPropertiesByCategory(category: string): Promise<Propert
       pricePerNight,
       rating,
       reviewCount,
-      "mainImageUrl": mainImage.asset->url,
+      mainImageUrl,
       amenities,
       featured,
       categories

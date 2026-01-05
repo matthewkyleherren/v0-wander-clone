@@ -61,12 +61,20 @@ export default async function PropertyPage({ params }: PropertyPageProps) {
     propertyData = await getPropertyBySlug(slug)
     console.log("[v0] Property data from Sanity:", propertyData?.name)
     console.log("[v0] Images from Sanity:", propertyData?.images)
+    console.log("[v0] BedroomDetails from Sanity:", JSON.stringify(propertyData?.bedroomDetails))
   } catch (error) {
     console.log("Sanity not configured, using fallback data")
   }
 
   // Use fallback data if Sanity returns nothing or is not configured
   const property = propertyData || fallbackPropertyData
+
+  const mappedBedroomDetails =
+    property.bedroomDetails?.map((bedroom: any) => ({
+      name: bedroom.name,
+      beds: bedroom.beds,
+      image: bedroom.imageUrl || bedroom.image || "/placeholder.svg",
+    })) || fallbackPropertyData.bedroomDetails
 
   const displayData = {
     name: property.name,
@@ -82,7 +90,7 @@ export default async function PropertyPage({ params }: PropertyPageProps) {
     description: property.description || fallbackPropertyData.description,
     images: property.images?.length ? property.images : fallbackPropertyData.images,
     highlights: property.highlights?.length ? property.highlights : fallbackPropertyData.highlights,
-    bedroomDetails: property.bedroomDetails?.length ? property.bedroomDetails : fallbackPropertyData.bedroomDetails,
+    bedroomDetails: mappedBedroomDetails,
     coordinates: property.coordinates || fallbackPropertyData.coordinates,
   }
 

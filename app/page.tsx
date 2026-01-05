@@ -13,6 +13,11 @@ export default async function Home() {
   let properties = null
   try {
     properties = await getProperties()
+    console.log(
+      "[v0] Properties from Sanity:",
+      properties?.length,
+      properties?.map((p) => p.name),
+    )
   } catch (error) {
     // Sanity not configured, will use fallback data
     console.error("[v0] Sanity error:", error)
