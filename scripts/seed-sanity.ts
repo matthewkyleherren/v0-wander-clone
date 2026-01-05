@@ -20,10 +20,7 @@ const client = createClient({
   apiVersion: "2024-01-01",
 })
 
-async function uploadImageFromUrl(
-  imageUrl: string,
-  filename: string,
-): Promise<{ _type: "image"; asset: { _type: "reference"; _ref: string } }> {
+async function uploadImageFromUrl(imageUrl, filename) {
   console.log(`[v0] Uploading image: ${filename}`)
 
   const response = await fetch(imageUrl)
@@ -314,7 +311,7 @@ const propertiesData = [
     bedrooms: 4,
     bathrooms: 4,
     sqft: 4200,
-    mainImageUrl: "https://images.unsplash.com/photo-1499793983690-e29da59ef1c2?w=1200&h=800&fit=crop",
+    mainImageUrl: "https://images.unsplash.com/photo-1499793983690-e29da5961d3e?w=1200&h=800&fit=crop",
     imageUrls: [
       "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=1200&h=800&fit=crop",
       "https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=1200&h=800&fit=crop",
