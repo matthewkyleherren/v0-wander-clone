@@ -31,7 +31,7 @@ export function Hero() {
             Find your happy place.
           </h1>
           <p className="text-base md:text-lg text-muted-foreground max-w-xl mx-auto text-pretty">
-            Never book a bad vacation home again. Every Wander comes with hotel-grade amenities, inspiring views,
+            Never book a bad vacation home again. Every OffGrid comes with hotel-grade amenities, inspiring views,
             pristine cleaning and 24/7 concierge service.
           </p>
         </div>
@@ -107,7 +107,8 @@ export function Hero() {
           <div className="flex items-center gap-2.5 bg-card/90 backdrop-blur-sm rounded-md px-4 py-2.5 border border-border">
             <Shield className="h-5 w-5 text-foreground" />
             <div className="text-left">
-              <p className="text-xs font-medium text-foreground">Wander Guarantee</p>
+              {/* OffGrid Guarantee */}
+              <p className="text-xs font-medium text-foreground">OffGrid Guarantee</p>
               <p className="text-[11px] text-muted-foreground">Book with confidence</p>
             </div>
           </div>

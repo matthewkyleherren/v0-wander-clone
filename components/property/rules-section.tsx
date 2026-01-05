@@ -30,7 +30,7 @@ export function RulesSection() {
             <h3 className="font-medium text-foreground mb-1">Easy cancellation</h3>
             <p className="text-sm text-muted-foreground">
               Changed your mind? You can cancel your trip for up to 14 days prior to start and receive a full refund in
-              Wander credits.
+              OffGrid credits.
             </p>
           </div>
         </div>

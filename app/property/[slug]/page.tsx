@@ -24,7 +24,7 @@ const fallbackPropertyData = {
   reviewCount: 47,
   pricePerNight: 466,
   description:
-    "Wander Inlet Beach Serenity offers an exquisite retreat with stunning lake views and direct lake access, perfect for those seeking tranquility. Guests can explore the picturesque surroundings with complimentary bicycles, ensuring a luxurious and active escape. This elegant property provides an idyllic setting for relaxation and cherished memories by the water.",
+    "OffGrid Inlet Beach Serenity offers an exquisite retreat with stunning lake views and direct lake access, perfect for those seeking tranquility. Guests can explore the picturesque surroundings with complimentary bicycles, ensuring a luxurious and active escape. This elegant property provides an idyllic setting for relaxation and cherished memories by the water.",
   images: [
     "/luxury-lake-house-florida-porch-view.jpg",
     "/modern-living-room-lake-view.jpg",
@@ -87,7 +87,7 @@ export default async function PropertyPage({ params }: PropertyPageProps) {
   return (
     <div className="min-h-screen bg-background pb-24">
       {/* Mobile Header */}
-      <MobileHeader title={`Wander ${displayData.name}`} />
+      <MobileHeader title={`OffGrid ${displayData.name}`} />
 
       <main className="pt-12">
         {/* Property Info - Centered at top */}

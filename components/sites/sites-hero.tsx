@@ -35,7 +35,7 @@ export function SitesHero({ data }: SitesHeroProps) {
           <div className="text-center sm:text-left">
             <div className="text-3xl font-bold mb-1">{data?.stat || "$55M+"}</div>
             <div className="text-sm text-muted-foreground">
-              {data?.statDescription || "in bookings with Wander Sites"}
+              {data?.statDescription || "in bookings with OffGrid Sites"}
             </div>
           </div>
           <Button variant="ghost" size="sm" className="gap-2">
@@ -51,7 +51,7 @@ export function SitesHero({ data }: SitesHeroProps) {
           </h1>
           <p className="text-xl text-muted-foreground mb-8">
             {data?.description ||
-              "You're missing out on bookings, revenue, and guest relationships. Take control with a Wander-worthy direct booking website."}
+              "You're missing out on bookings, revenue, and guest relationships. Take control with an OffGrid-worthy direct booking website."}
           </p>
           <Button size="lg" className="text-base">
             {data?.ctaLabel || "Get started for free"}

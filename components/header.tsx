@@ -21,7 +21,7 @@ export function Header() {
         <div className="flex items-center justify-between h-14">
           {/* Logo - simpler, text-only logo */}
           <Link href="/" className="flex items-center">
-            <span className="text-lg font-semibold text-foreground tracking-tight">wander</span>
+            <span className="text-lg font-semibold text-foreground tracking-tight">offgrid</span>
           </Link>
 
           {/* Desktop Navigation - subtler styling */}

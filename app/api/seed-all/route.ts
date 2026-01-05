@@ -110,14 +110,14 @@ export async function GET() {
             { name: "Parking", icon: "car" },
           ],
           wanderDifference: {
-            title: "The Wander difference",
+            title: "The OffGrid difference",
             description:
-              "Wander is different because we combine the quality of a luxury hotel with the comfort of a private vacation home. Your best trip ever is just a few clicks away.",
+              "OffGrid is different because we combine the quality of a luxury hotel with the comfort of a private vacation home. Your best trip ever is just a few clicks away.",
             features: [
               {
                 title: "Only the best homes",
                 description:
-                  "We'll never not look like the pictures. Every Wander is beautiful and expertly operated, so you can leave any stress at the door.",
+                  "We'll never not look like the pictures. Every OffGrid is beautiful and expertly operated, so you can leave any stress at the door.",
                 image: {
                   _type: "image",
                   asset: {
@@ -153,7 +153,7 @@ export async function GET() {
               {
                 title: "Stunning locations",
                 description:
-                  "Wake up to breathtaking views. All Wander homes are in the most beautiful destinations around the world.",
+                  "Wake up to breathtaking views. All OffGrid homes are in the most beautiful destinations around the world.",
                 image: {
                   _type: "image",
                   asset: {
@@ -165,7 +165,7 @@ export async function GET() {
               {
                 title: "Pristine & clean",
                 description:
-                  "Five-star cleaning standards. Every Wander is professionally cleaned and sanitized before your arrival.",
+                  "Five-star cleaning standards. Every OffGrid is professionally cleaned and sanitized before your arrival.",
                 image: {
                   _type: "image",
                   asset: {
@@ -196,7 +196,7 @@ export async function GET() {
         createOrReplace: {
           _type: "siteSettings",
           _id: "site-settings-singleton",
-          siteName: "Wander",
+          siteName: "OffGrid",
           headerNavigation: [
             { label: "Home", href: "/" },
             { label: "Properties", href: "/" },
@@ -238,11 +238,11 @@ export async function GET() {
               buttonText: "Subscribe",
             },
             socialLinks: [
-              { platform: "instagram", url: "https://instagram.com/wander" },
-              { platform: "facebook", url: "https://facebook.com/wander" },
-              { platform: "twitter", url: "https://twitter.com/wander" },
+              { platform: "instagram", url: "https://instagram.com/offgrid" },
+              { platform: "facebook", url: "https://facebook.com/offgrid" },
+              { platform: "twitter", url: "https://twitter.com/offgrid" },
             ],
-            copyrightText: "© 2026 Wander. All rights reserved.",
+            copyrightText: "© 2026 OffGrid. All rights reserved.",
           },
         },
       },

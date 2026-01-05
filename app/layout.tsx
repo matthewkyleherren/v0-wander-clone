@@ -10,15 +10,15 @@ const geistMono = Geist_Mono({ subsets: ["latin"], variable: "--font-geist-mono"
 const playfair = Playfair_Display({ subsets: ["latin"], variable: "--font-playfair" })
 
 export const metadata: Metadata = {
-  title: "Wander - Luxury Vacation Rentals | Find Your Happy Place",
+  title: "OffGrid - Luxury Vacation Rentals | Find Your Happy Place",
   description:
-    "Never book a bad vacation home again. Every Wander comes with hotel-grade amenities, inspiring views, pristine cleaning and 24/7 concierge service.",
+    "Never book a bad vacation home again. Every OffGrid comes with hotel-grade amenities, inspiring views, pristine cleaning and 24/7 concierge service.",
   generator: "v0.app",
   manifest: "/manifest.json",
   appleWebApp: {
     capable: true,
     statusBarStyle: "black-translucent",
-    title: "Wander",
+    title: "OffGrid",
   },
   icons: {
     icon: [

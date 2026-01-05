@@ -7,14 +7,14 @@ import { BottomSheet } from "@/components/ui/bottom-sheet"
 
 const reviews = [
   {
-    text: "We decided to celebrate our 10-year anniversary at a Wander and it's one of the best decisions we've made! Everything in the property was well thought-out. And if we needed anything that the house didn't already have, the 24/7 concierge was ready to help us. We're already looking forward to booking our next family trip with Wander!",
+    text: "We decided to celebrate our 10-year anniversary at an OffGrid and it's one of the best decisions we've made! Everything in the property was well thought-out. And if we needed anything that the house didn't already have, the 24/7 concierge was ready to help us. We're already looking forward to booking our next family trip with OffGrid!",
     author: "jenolesada",
     location: "United States",
     date: "Dec 2025",
     verified: true,
   },
   {
-    text: "Wander has been a fabulous experience and platform to work with and I look forward to future trips!",
+    text: "OffGrid has been a fabulous experience and platform to work with and I look forward to future trips!",
     author: "Hike2Hike",
     location: "United States",
     date: "Dec 2025",

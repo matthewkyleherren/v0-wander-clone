@@ -117,7 +117,7 @@ export async function GET() {
         slug: { _type: "slug", current: "inlet-beach-serenity" },
         location: "Inlet Beach, Florida",
         description:
-          "Wander Inlet Beach Serenity offers an exquisite retreat with stunning lake views and direct lake access, perfect for those seeking tranquility. Guests can explore the picturesque surroundings with complimentary bicycles, ensuring a luxurious and active escape.",
+          "OffGrid Inlet Beach Serenity offers an exquisite retreat with stunning lake views and direct lake access, perfect for those seeking tranquility. Guests can explore the picturesque surroundings with complimentary bicycles, ensuring a luxurious and active escape.",
         pricePerNight: 466,
         bedrooms: 4,
         bathrooms: 3.5,
@@ -300,7 +300,7 @@ export async function GET() {
         author: "jenolesada",
         location: "United States",
         content:
-          "We decided to celebrate our 10-year anniversary at a Wander and it's one of the best decisions we've made! Everything in the property was well thought-out.",
+          "We decided to celebrate our 10-year anniversary at an OffGrid and it's one of the best decisions we've made! Everything in the property was well thought-out.",
         stayDate: "Dec 2025",
         verified: true,
         property: { _type: "reference", _ref: "property-inlet-beach-serenity" },
@@ -310,7 +310,7 @@ export async function GET() {
         _type: "review",
         author: "Hike2Hike",
         location: "United States",
-        content: "Wander has been a fabulous experience and platform to work with and I look forward to future trips!",
+        content: "OffGrid has been a fabulous experience and platform to work with and I look forward to future trips!",
         stayDate: "Dec 2025",
         verified: true,
         property: { _type: "reference", _ref: "property-inlet-beach-serenity" },

@@ -9,7 +9,7 @@ const features = [
     image: "/happy-family-walking-outside-beautiful-vacation-ho.jpg",
     title: "Only the best homes",
     description:
-      "We'll never not look like the pictures. Every Wander is beautiful and expertly operated, so you can leave any stress at the door.",
+      "We'll never not look like the pictures. Every OffGrid is beautiful and expertly operated, so you can leave any stress at the door.",
   },
   {
     image: "/luxury-villa-with-infinity-pool-at-sunset-ocean-vi.jpg",
@@ -27,7 +27,7 @@ const features = [
     image: "/stunning-mountain-view-from-luxury-cabin-window-su.jpg",
     title: "Inspiring and stunning views",
     description:
-      "We'll never leave you uninspired. Every Wander has stunning views to refresh and inspire your soul. Adventure awaits.",
+      "We'll never leave you uninspired. Every OffGrid has stunning views to refresh and inspire your soul. Adventure awaits.",
   },
   {
     image: "/pristine-clean-luxury-bedroom-white-linens.jpg",
@@ -39,7 +39,7 @@ const features = [
     image: "/smart-home-security-system-modern-house.jpg",
     title: "Safety and security",
     description:
-      "We'll never pass you off to a stranger. Every Wander location meets our industry-leading safety standards to give you peace of mind.",
+      "We'll never pass you off to a stranger. Every OffGrid location meets our industry-leading safety standards to give you peace of mind.",
   },
 ]
 
@@ -60,10 +60,10 @@ export function Features() {
     <section className="py-8 bg-background">
       <div className="text-center mb-6 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
         <h2 className="font-serif text-2xl md:text-3xl font-normal text-foreground tracking-tight italic mb-3">
-          The Wander difference
+          The OffGrid difference
         </h2>
         <p className="text-sm text-muted-foreground max-w-sm mx-auto text-pretty leading-relaxed">
-          Wander is different because we combine the quality of a luxury hotel with the comfort of a private vacation
+          OffGrid is different because we combine the quality of a luxury hotel with the comfort of a private vacation
           home. Your best trip ever is just a few clicks away.
         </p>
       </div>

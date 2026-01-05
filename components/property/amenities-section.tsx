@@ -50,7 +50,7 @@ export function AmenitiesSection({ amenities, propertyName }: AmenitiesSectionPr
       </p>
       <h2 className="text-base font-medium text-foreground mb-1.5">Hotel-grade amenities, but just for you</h2>
       <p className="text-xs text-muted-foreground mb-6 leading-relaxed">
-        Wander is the best of both worlds. The quality of a luxury hotel with the comfort of a private vacation home
+        OffGrid is the best of both worlds. The quality of a luxury hotel with the comfort of a private vacation home
         just for you and your guests.
       </p>
 
