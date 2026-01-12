@@ -70,7 +70,7 @@ export function ReviewsSection({ rating, reviewCount }: ReviewsSectionProps) {
   ];
 
   return (
-    <section className="py-12 border-b border-gray-200" id="reviews">
+    <section className="py-10 border-b border-gray-100" id="reviews">
       <div className="grid lg:grid-cols-[280px_1fr] gap-12">
         {/* Left column - Rating summary */}
         <div>
@@ -164,7 +164,7 @@ export function ReviewsSection({ rating, reviewCount }: ReviewsSectionProps) {
         {mockReviews.map((review) => (
           <div
             key={review.id}
-            className="bg-white border border-gray-200 rounded-xl p-5 flex flex-col min-h-[200px]"
+            className="bg-white border border-gray-200 rounded-xl p-5 flex flex-col min-h-[200px] shadow-[0_2px_8px_rgba(0,0,0,0.04)] hover:shadow-[0_4px_12px_rgba(0,0,0,0.08)] transition-shadow"
           >
             {/* Stars */}
             <div className="flex gap-0.5 mb-4">
@@ -202,7 +202,7 @@ export function ReviewsSection({ rating, reviewCount }: ReviewsSectionProps) {
       {reviewCount > 3 && (
         <Button
           variant="outline"
-          className="mt-6 rounded-full border-gray-300 text-gray-700 hover:bg-gray-50 px-6"
+          className="mt-6 rounded-lg border-gray-200 text-gray-900 text-[14px] font-normal h-10 px-5 hover:bg-gray-50"
           onClick={() => setShowAll(true)}
         >
           Read all reviews

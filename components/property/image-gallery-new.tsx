@@ -153,7 +153,7 @@ export function ImageGalleryNew({ images, propertyName }: ImageGalleryProps) {
           <Button
             variant="secondary"
             size="sm"
-            className="absolute bottom-4 right-4 bg-white hover:bg-gray-50 text-gray-900 shadow-lg rounded-lg font-medium"
+            className="absolute bottom-5 right-5 bg-white hover:bg-gray-50 text-gray-900 shadow-sm rounded-lg font-normal text-sm px-4 h-9 border border-gray-200"
             onClick={() => openLightbox(0)}
           >
             Show all photos

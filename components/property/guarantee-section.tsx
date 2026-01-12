@@ -14,32 +14,18 @@ export function GuaranteeSection({
   cancellationPolicy,
 }: GuaranteeSectionProps) {
   return (
-    <div className="py-6 border-y">
-      {/* OffGrid Guarantee Badge */}
-      <div className="flex items-center gap-4 mb-6 p-4 bg-card rounded-xl border shadow-md">
-        <div className="relative">
-          <div className="w-16 h-16 rounded-full bg-gradient-to-br from-primary/20 to-primary/5 flex items-center justify-center">
-            <Shield className="h-8 w-8 text-primary" />
-          </div>
-          <div className="absolute -top-1 -right-1 w-6 h-6 rounded-full bg-primary flex items-center justify-center">
-            <span className="text-xs font-bold text-primary-foreground">5</span>
-          </div>
-        </div>
-        <div>
-          <h3 className="font-semibold text-lg">The OffGrid Guarantee</h3>
-          <p className="text-sm text-muted-foreground">
-            Book with confidence. Premium quality assured.
-          </p>
-        </div>
-      </div>
-
+    <div className="py-8 border-b border-gray-100">
       {/* Feature list */}
-      <div className="space-y-4">
+      <div className="space-y-5">
         <div className="flex items-start gap-3">
-          <Clock className="h-5 w-5 text-muted-foreground mt-0.5 flex-shrink-0" />
+          <div className="w-8 h-8 rounded-lg bg-gray-50 flex items-center justify-center flex-shrink-0">
+            <Clock className="h-[18px] w-[18px] text-gray-500" />
+          </div>
           <div>
-            <h4 className="font-medium">Flexible check-in & out</h4>
-            <p className="text-sm text-muted-foreground">
+            <h4 className="font-normal text-[15px] text-gray-900 mb-0.5">
+              Flexible check-in & out
+            </h4>
+            <p className="text-[13px] text-gray-500 leading-relaxed">
               Check-in after {checkInTime} · Check-out before {checkOutTime}
               {petsAllowed && " · Pets allowed"}
             </p>
@@ -47,21 +33,28 @@ export function GuaranteeSection({
         </div>
 
         <div className="flex items-start gap-3">
-          <RefreshCcw className="h-5 w-5 text-muted-foreground mt-0.5 flex-shrink-0" />
+          <div className="w-8 h-8 rounded-lg bg-gray-50 flex items-center justify-center flex-shrink-0">
+            <RefreshCcw className="h-[18px] w-[18px] text-gray-500" />
+          </div>
           <div>
-            <h4 className="font-medium">Easy cancellation</h4>
-            <p className="text-sm text-muted-foreground">
-              {cancellationPolicy ||
-                "Cancel within 24 hours for a full refund."}
+            <h4 className="font-normal text-[15px] text-gray-900 mb-0.5">
+              Easy cancellation
+            </h4>
+            <p className="text-[13px] text-gray-500 leading-relaxed">
+              {cancellationPolicy || "Cancel within 24 hours for a full refund"}
             </p>
           </div>
         </div>
 
         <div className="flex items-start gap-3">
-          <Sparkles className="h-5 w-5 text-muted-foreground mt-0.5 flex-shrink-0" />
+          <div className="w-8 h-8 rounded-lg bg-gray-50 flex items-center justify-center flex-shrink-0">
+            <Sparkles className="h-[18px] w-[18px] text-gray-500" />
+          </div>
           <div>
-            <h4 className="font-medium">Pristine homes, no to-do lists</h4>
-            <p className="text-sm text-muted-foreground">
+            <h4 className="font-normal text-[15px] text-gray-900 mb-0.5">
+              Pristine homes, no to-do lists
+            </h4>
+            <p className="text-[13px] text-gray-500 leading-relaxed">
               Arrive to five star cleaning · No chores at checkout · Just lock
               up and go
             </p>

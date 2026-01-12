@@ -110,24 +110,25 @@ export function AmenitiesGrid({ amenities }: AmenitiesGridProps) {
   const hasMore = amenities.length > 8;
 
   return (
-    <section className="py-8 border-b">
-      <h2 className="text-xl font-semibold mb-2">Hotel-grade amenities</h2>
-      <p className="text-sm text-muted-foreground mb-6">
+    <section className="py-10 border-b border-gray-100">
+      <h2 className="text-[22px] font-normal mb-2 text-gray-900">
+        Hotel-grade amenities
+      </h2>
+      <p className="text-[15px] text-gray-600 mb-6 leading-[1.7]">
         OffGrid is the best of both worlds. The quality of a luxury hotel with
         the comfort of a private vacation home just for you and your guests.
       </p>
 
       {/* Amenities grid */}
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+      <div className="grid grid-cols-2 md:grid-cols-3 gap-x-8 gap-y-3">
         {displayedAmenities.map((amenity, index) => {
           const Icon = getAmenityIcon(amenity);
           return (
-            <div
-              key={index}
-              className="flex items-center gap-3 p-3 rounded-xl bg-card border shadow-sm hover:shadow-md transition-shadow"
-            >
-              <Icon className="h-5 w-5 text-muted-foreground flex-shrink-0" />
-              <span className="text-sm font-medium capitalize">{amenity}</span>
+            <div key={index} className="flex items-center gap-3">
+              <Icon className="h-[18px] w-[18px] text-gray-500 flex-shrink-0" />
+              <span className="text-[14px] text-gray-700 capitalize">
+                {amenity}
+              </span>
             </div>
           );
         })}
@@ -136,10 +137,10 @@ export function AmenitiesGrid({ amenities }: AmenitiesGridProps) {
       {hasMore && (
         <Button
           variant="outline"
-          className="mt-6"
+          className="mt-7 rounded-lg border-gray-200 text-gray-900 text-[14px] font-normal h-10 px-5 hover:bg-gray-50"
           onClick={() => setShowAll(true)}
         >
-          Show all {amenities.length} amenities
+          See all {amenities.length} amenities
         </Button>
       )}
 

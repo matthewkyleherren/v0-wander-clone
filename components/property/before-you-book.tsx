@@ -106,8 +106,8 @@ export function BeforeYouBook({
   if (allNotices.length === 0) return null;
 
   return (
-    <section className="py-12 border-b border-gray-200">
-      <h2 className="text-[22px] font-semibold text-gray-900 mb-8">
+    <section className="py-10 border-b border-gray-100">
+      <h2 className="text-[22px] font-normal text-gray-900 mb-8">
         Before you book
       </h2>
 
@@ -123,7 +123,7 @@ export function BeforeYouBook({
               open={isOpen}
               onOpenChange={() => toggleItem(id)}
             >
-              <CollapsibleTrigger className="flex items-center justify-between w-full px-5 py-4 bg-white border border-gray-200 rounded-xl hover:border-gray-300 transition-colors text-left">
+              <CollapsibleTrigger className="flex items-center justify-between w-full px-5 py-4 bg-white border border-gray-200 rounded-xl hover:border-gray-300 transition-colors text-left shadow-[0_2px_8px_rgba(0,0,0,0.04)] hover:shadow-[0_4px_12px_rgba(0,0,0,0.08)] transition-all">
                 <div className="flex items-center gap-3">
                   <Icon className="h-5 w-5 text-gray-400 flex-shrink-0" />
                   <span className="text-[15px] font-medium text-gray-900">
@@ -136,7 +136,7 @@ export function BeforeYouBook({
                   <Plus className="h-5 w-5 text-gray-400" />
                 )}
               </CollapsibleTrigger>
-              <CollapsibleContent className="px-5 pb-4 pt-3 border border-t-0 border-gray-200 rounded-b-xl -mt-2">
+              <CollapsibleContent className="px-5 pb-4 pt-3 border border-t-0 border-gray-200 rounded-b-xl -mt-2 shadow-[0_2px_8px_rgba(0,0,0,0.04)]">
                 <p className="text-[14px] text-gray-600 leading-relaxed pl-8">
                   {notice.description}
                 </p>

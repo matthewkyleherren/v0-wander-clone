@@ -51,18 +51,18 @@ export function ThingsToKnow({
   const [showCancellationModal, setShowCancellationModal] = useState(false);
 
   return (
-    <section className="py-12 border-b border-gray-200">
-      <h2 className="text-[22px] font-semibold text-gray-900 mb-3">
+    <section className="py-10 border-b border-gray-100">
+      <h2 className="text-[22px] font-normal text-gray-900 mb-3">
         Things to know
       </h2>
-      <p className="text-[14px] text-gray-500 mb-8">
-        Here are some things which you should know before booking
+      <p className="text-[14px] text-gray-600 mb-8">
+        Here are some things which you should know before booking Wander{" "}
       </p>
 
       <div className="grid md:grid-cols-[2fr_1fr] gap-4">
         {/* House Rules - Grey header box */}
-        <div className="border border-gray-200 rounded-2xl overflow-hidden">
-          <div className="bg-gray-100 px-5 py-3">
+        <div className="border border-gray-200 rounded-2xl overflow-hidden shadow-[0_2px_8px_rgba(0,0,0,0.04)]">
+          <div className="bg-gray-50 px-5 py-3">
             <h3 className="text-[11px] font-semibold tracking-[0.1em] text-gray-600 uppercase">
               House Rules
             </h3>
@@ -118,8 +118,8 @@ export function ThingsToKnow({
         </div>
 
         {/* Cancellation Policy - Grey header box */}
-        <div className="border border-gray-200 rounded-2xl overflow-hidden">
-          <div className="bg-gray-100 px-5 py-3">
+        <div className="border border-gray-200 rounded-2xl overflow-hidden shadow-[0_2px_8px_rgba(0,0,0,0.04)]">
+          <div className="bg-gray-50 px-5 py-3">
             <h3 className="text-[11px] font-semibold tracking-[0.1em] text-gray-600 uppercase">
               Cancellation Policy
             </h3>

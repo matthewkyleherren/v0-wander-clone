@@ -80,43 +80,15 @@ export function HighlightTags({ highlights }: HighlightTagsProps) {
   if (!highlights || highlights.length === 0) return null;
 
   return (
-    <div className="py-4">
-      {/* Mobile: Horizontal scroll */}
-      <div className="lg:hidden">
-        <ScrollArea className="w-full whitespace-nowrap">
-          <div className="flex gap-3 px-4">
-            {highlights.map((highlight, index) => {
-              const Icon = getIcon(highlight.icon);
-              return (
-                <div
-                  key={index}
-                  className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-card border shadow-sm text-sm font-medium"
-                >
-                  <Icon className="h-4 w-4" />
-                  <span>{highlight.label}</span>
-                </div>
-              );
-            })}
-          </div>
-          <ScrollBar orientation="horizontal" className="invisible" />
-        </ScrollArea>
-      </div>
-
-      {/* Desktop: Flex wrap */}
-      <div className="hidden lg:flex flex-wrap gap-3">
-        {highlights.map((highlight, index) => {
-          const Icon = getIcon(highlight.icon);
-          return (
-            <div
-              key={index}
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-card border shadow-sm text-sm font-medium"
-            >
-              <Icon className="h-4 w-4" />
-              <span>{highlight.label}</span>
-            </div>
-          );
-        })}
-      </div>
+    <div className="flex items-center gap-2 py-5 text-[15px] text-gray-900 border-b border-gray-100">
+      {highlights.slice(0, 3).map((highlight, index) => (
+        <span key={index}>
+          {highlight.label}
+          {index < Math.min(highlights.length - 1, 2) && (
+            <span className="mx-2 text-gray-300">·</span>
+          )}
+        </span>
+      ))}
     </div>
   );
 }

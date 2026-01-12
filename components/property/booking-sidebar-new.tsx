@@ -22,24 +22,24 @@ export function BookingSidebarNew({
 }: BookingSidebarProps) {
   return (
     <div className="sticky top-24">
-      <div className="bg-white border border-gray-200 rounded-2xl p-6 shadow-[0_2px_16px_rgba(0,0,0,0.08)]">
+      <div className="bg-white border border-gray-200 rounded-2xl p-6 shadow-[0_2px_12px_rgba(0,0,0,0.06)]">
         {/* Header */}
-        <h3 className="text-[17px] font-semibold text-gray-900 mb-6">
+        <h3 className="text-[17px] font-normal text-gray-900 mb-6">
           Explore dates and pricing
         </h3>
 
         {/* Date inputs */}
         <div className="grid grid-cols-2 gap-3 mb-4">
-          <div className="border border-gray-300 rounded-lg px-4 py-3">
+          <div className="border border-gray-200 rounded-lg px-4 py-3 cursor-pointer hover:border-gray-300 transition-colors">
             <span className="text-[13px] text-gray-500">Check-in</span>
           </div>
-          <div className="border border-gray-300 rounded-lg px-4 py-3">
+          <div className="border border-gray-200 rounded-lg px-4 py-3 cursor-pointer hover:border-gray-300 transition-colors">
             <span className="text-[13px] text-gray-500">Check-out</span>
           </div>
         </div>
 
         {/* Select dates button */}
-        <Button className="w-full h-12 bg-gray-900 hover:bg-gray-800 text-white rounded-full text-[15px] font-medium">
+        <Button className="w-full h-12 bg-gray-900 hover:bg-gray-800 text-white rounded-full text-[15px] font-normal">
           Select dates
         </Button>
 
@@ -58,7 +58,7 @@ export function BookingSidebarNew({
             </svg>
           </div>
           <div>
-            <p className="text-[14px] font-semibold text-gray-900">
+            <p className="text-[14px] font-normal text-gray-900">
               The OffGrid Guarantee
             </p>
             <p className="text-[13px] text-gray-500">

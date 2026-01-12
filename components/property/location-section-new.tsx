@@ -86,7 +86,7 @@ export function LocationSectionNew({
   }, [coordinates, location]);
 
   return (
-    <section className="py-12 border-b border-gray-200" id="location">
+    <section className="py-10 border-b border-gray-100" id="location">
       {/* Map */}
       {coordinates && (
         <div className="relative mb-8">
@@ -117,15 +117,13 @@ export function LocationSectionNew({
           {/* Restaurants column */}
           {restaurants.length > 0 && (
             <div>
-              <h3 className="text-[15px] font-semibold text-gray-900 mb-4">
+              <h3 className="text-[15px] font-normal text-gray-900 mb-4">
                 Restaurants
               </h3>
-              <ul className="space-y-3">
+              <ul className="space-y-2.5">
                 {restaurants.map((place, index) => (
-                  <li key={index} className="flex items-center gap-3">
-                    <div className="w-8 h-8 rounded-lg bg-gray-100 flex items-center justify-center flex-shrink-0">
-                      <Utensils className="h-4 w-4 text-gray-500" />
-                    </div>
+                  <li key={index} className="flex items-center gap-2.5">
+                    <Utensils className="h-[18px] w-[18px] text-gray-400 flex-shrink-0" />
                     <span className="text-[14px] text-gray-700">
                       {place.name}
                     </span>
@@ -138,15 +136,13 @@ export function LocationSectionNew({
           {/* Attractions column */}
           {attractions.length > 0 && (
             <div>
-              <h3 className="text-[15px] font-semibold text-gray-900 mb-4">
+              <h3 className="text-[15px] font-normal text-gray-900 mb-4">
                 Attractions
               </h3>
-              <ul className="space-y-3">
+              <ul className="space-y-2.5">
                 {attractions.map((place, index) => (
-                  <li key={index} className="flex items-center gap-3">
-                    <div className="w-8 h-8 rounded-lg bg-gray-100 flex items-center justify-center flex-shrink-0">
-                      <Landmark className="h-4 w-4 text-gray-500" />
-                    </div>
+                  <li key={index} className="flex items-center gap-2.5">
+                    <Landmark className="h-[18px] w-[18px] text-gray-400 flex-shrink-0" />
                     <span className="text-[14px] text-gray-700">
                       {place.name}
                     </span>
@@ -161,7 +157,7 @@ export function LocationSectionNew({
       {/* Learn more button */}
       <Button
         variant="outline"
-        className="mt-8 rounded-full border-gray-300 text-gray-700 hover:bg-gray-50 px-6"
+        className="mt-8 rounded-lg border-gray-200 text-gray-900 text-[14px] font-normal h-10 px-5 hover:bg-gray-50"
       >
         Learn more about the area
       </Button>

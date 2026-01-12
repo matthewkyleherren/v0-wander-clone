@@ -68,19 +68,19 @@ export function PropertyHero({ name, location }: PropertyHeroProps) {
       </header>
 
       {/* Desktop Header */}
-      <div className="hidden lg:block pt-6 pb-4">
-        <p className="text-[11px] font-medium tracking-[0.1em] text-muted-foreground uppercase mb-1">
+      <div className="hidden lg:block pt-8 pb-6">
+        <p className="text-[11px] font-medium tracking-[0.08em] text-gray-500 uppercase mb-2">
           {location}
         </p>
         <div className="flex items-start justify-between">
-          <h1 className="text-[42px] font-medium tracking-tight leading-tight">
+          <h1 className="text-[38px] font-normal tracking-tight leading-tight">
             OffGrid {name}
           </h1>
-          <div className="flex items-center gap-2 pt-2">
+          <div className="flex items-center gap-3 pt-1">
             <Button
               variant="outline"
               size="sm"
-              className="gap-2 rounded-full px-4 h-9 border-gray-300 text-gray-700 hover:bg-gray-50"
+              className="gap-2 rounded-md px-4 h-9 border-gray-200 text-sm font-normal text-gray-700 hover:bg-gray-50"
               onClick={() => setIsWishlisted(!isWishlisted)}
             >
               <Heart
@@ -91,7 +91,7 @@ export function PropertyHero({ name, location }: PropertyHeroProps) {
             <Button
               variant="outline"
               size="sm"
-              className="gap-2 rounded-full px-4 h-9 border-gray-300 text-gray-700 hover:bg-gray-50"
+              className="gap-2 rounded-md px-4 h-9 border-gray-200 text-sm font-normal text-gray-700 hover:bg-gray-50"
               onClick={handleShare}
             >
               <Share2 className="h-4 w-4" />
