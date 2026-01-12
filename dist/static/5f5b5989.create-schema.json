@@ -1,0 +1,1296 @@
+[
+  {
+    "fields": [
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "name": "name",
+        "type": "string",
+        "title": "Property Name"
+      },
+      {
+        "options": {
+          "source": "name",
+          "maxLength": 96
+        },
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "custom"
+              },
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "name": "slug",
+        "type": "slug"
+      },
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "name": "location",
+        "type": "string"
+      },
+      {
+        "rows": 4,
+        "name": "description",
+        "type": "text"
+      },
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              },
+              {
+                "flag": "min",
+                "constraint": 0
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "name": "pricePerNight",
+        "type": "number"
+      },
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "min",
+                "constraint": 0
+              },
+              {
+                "flag": "max",
+                "constraint": 5
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "name": "rating",
+        "type": "number"
+      },
+      {
+        "name": "reviewCount",
+        "type": "number"
+      },
+      {
+        "name": "guests",
+        "type": "number",
+        "title": "Max Guests"
+      },
+      {
+        "name": "beds",
+        "type": "number",
+        "title": "Number of Beds"
+      },
+      {
+        "name": "bedrooms",
+        "type": "number",
+        "title": "Number of Bedrooms"
+      },
+      {
+        "name": "bathrooms",
+        "type": "number",
+        "title": "Number of Bathrooms"
+      },
+      {
+        "name": "sqft",
+        "type": "number",
+        "title": "Square Footage"
+      },
+      {
+        "options": {
+          "hotspot": true
+        },
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "name": "mainImage",
+        "type": "image"
+      },
+      {
+        "of": [
+          {
+            "options": {
+              "hotspot": true
+            },
+            "type": "image"
+          }
+        ],
+        "name": "images",
+        "type": "array",
+        "title": "Gallery Images"
+      },
+      {
+        "initialValue": false,
+        "name": "featured",
+        "type": "boolean",
+        "title": "Featured Property"
+      },
+      {
+        "options": {
+          "list": [
+            {
+              "title": "Beach",
+              "value": "beach"
+            },
+            {
+              "title": "Mountain",
+              "value": "mountain"
+            },
+            {
+              "title": "Desert",
+              "value": "desert"
+            },
+            {
+              "title": "Lake",
+              "value": "lake"
+            },
+            {
+              "title": "Ski",
+              "value": "ski"
+            },
+            {
+              "title": "Tropical",
+              "value": "tropical"
+            }
+          ]
+        },
+        "of": [
+          {
+            "type": "string"
+          }
+        ],
+        "name": "categories",
+        "type": "array"
+      },
+      {
+        "of": [
+          {
+            "type": "string"
+          }
+        ],
+        "name": "amenities",
+        "type": "array"
+      },
+      {
+        "of": [
+          {
+            "fields": [
+              {
+                "name": "icon",
+                "type": "string"
+              },
+              {
+                "name": "label",
+                "type": "string"
+              }
+            ],
+            "type": "object"
+          }
+        ],
+        "name": "highlights",
+        "type": "array",
+        "title": "Property Highlights"
+      },
+      {
+        "of": [
+          {
+            "fields": [
+              {
+                "name": "name",
+                "type": "string",
+                "title": "Bedroom Name"
+              },
+              {
+                "name": "beds",
+                "type": "string",
+                "title": "Bed Configuration"
+              },
+              {
+                "options": {
+                  "hotspot": true
+                },
+                "name": "image",
+                "type": "image",
+                "title": "Bedroom Image"
+              }
+            ],
+            "type": "object"
+          }
+        ],
+        "name": "bedroomDetails",
+        "type": "array"
+      },
+      {
+        "fields": [
+          {
+            "name": "lat",
+            "type": "number",
+            "title": "Latitude"
+          },
+          {
+            "name": "lng",
+            "type": "number",
+            "title": "Longitude"
+          }
+        ],
+        "name": "coordinates",
+        "type": "object"
+      },
+      {
+        "of": [
+          {
+            "fields": [
+              {
+                "name": "icon",
+                "type": "string"
+              },
+              {
+                "name": "rule",
+                "type": "string"
+              }
+            ],
+            "type": "object"
+          }
+        ],
+        "name": "houseRules",
+        "type": "array"
+      },
+      {
+        "of": [
+          {
+            "fields": [
+              {
+                "name": "icon",
+                "type": "string"
+              },
+              {
+                "name": "title",
+                "type": "string"
+              },
+              {
+                "name": "description",
+                "type": "string"
+              }
+            ],
+            "type": "object"
+          }
+        ],
+        "name": "features",
+        "type": "array"
+      },
+      {
+        "options": {
+          "list": [
+            {
+              "title": "Beach House",
+              "value": "beach-house"
+            },
+            {
+              "title": "Mountain Cabin",
+              "value": "mountain-cabin"
+            },
+            {
+              "title": "Lake House",
+              "value": "lake-house"
+            },
+            {
+              "title": "Villa",
+              "value": "villa"
+            },
+            {
+              "title": "Chalet",
+              "value": "chalet"
+            },
+            {
+              "title": "Cottage",
+              "value": "cottage"
+            },
+            {
+              "title": "Estate",
+              "value": "estate"
+            },
+            {
+              "title": "Desert Retreat",
+              "value": "desert-retreat"
+            }
+          ]
+        },
+        "name": "propertyType",
+        "type": "string"
+      },
+      {
+        "description": "e.g., \"4:00 PM\" or \"After 4:00 PM\"",
+        "name": "checkInTime",
+        "type": "string",
+        "title": "Check-in Time"
+      },
+      {
+        "description": "e.g., \"10:00 AM\" or \"Before 10:00 AM\"",
+        "name": "checkOutTime",
+        "type": "string",
+        "title": "Check-out Time"
+      },
+      {
+        "initialValue": false,
+        "name": "petsAllowed",
+        "type": "boolean"
+      },
+      {
+        "description": "Flat fee for pets (if applicable)",
+        "name": "petFee",
+        "type": "number"
+      },
+      {
+        "name": "maxPets",
+        "type": "number",
+        "title": "Maximum Number of Pets"
+      },
+      {
+        "rows": 3,
+        "description": "Detailed pet policy and restrictions",
+        "name": "petRules",
+        "type": "text"
+      },
+      {
+        "rows": 3,
+        "name": "cancellationPolicy",
+        "type": "text"
+      },
+      {
+        "rows": 4,
+        "description": "Description of the neighborhood and surrounding area",
+        "name": "areaDescription",
+        "type": "text"
+      },
+      {
+        "of": [
+          {
+            "fields": [
+              {
+                "name": "name",
+                "type": "string",
+                "title": "Place Name"
+              },
+              {
+                "options": {
+                  "list": [
+                    {
+                      "title": "Restaurant",
+                      "value": "restaurant"
+                    },
+                    {
+                      "title": "Attraction",
+                      "value": "attraction"
+                    },
+                    {
+                      "title": "Shop",
+                      "value": "shop"
+                    },
+                    {
+                      "title": "Activity",
+                      "value": "activity"
+                    },
+                    {
+                      "title": "Grocery",
+                      "value": "grocery"
+                    },
+                    {
+                      "title": "Other",
+                      "value": "other"
+                    }
+                  ]
+                },
+                "name": "type",
+                "type": "string"
+              },
+              {
+                "description": "e.g., \"5 min walk\", \"10 min drive\"",
+                "name": "distance",
+                "type": "string"
+              },
+              {
+                "rows": 2,
+                "name": "description",
+                "type": "text"
+              }
+            ],
+            "type": "object"
+          }
+        ],
+        "name": "nearbyPlaces",
+        "type": "array"
+      },
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "uri",
+                "constraint": {
+                  "options": {
+                    "scheme": [
+                      "/^http$/",
+                      "/^https$/"
+                    ],
+                    "allowRelative": false,
+                    "relativeOnly": false,
+                    "allowCredentials": false
+                  }
+                }
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "name": "tourVideoUrl",
+        "type": "url",
+        "title": "Tour Video URL"
+      },
+      {
+        "of": [
+          {
+            "fields": [
+              {
+                "validation": [
+                  {
+                    "rules": [
+                      {
+                        "flag": "uri",
+                        "constraint": {
+                          "options": {
+                            "scheme": [
+                              "/^http$/",
+                              "/^https$/"
+                            ],
+                            "allowRelative": false,
+                            "relativeOnly": false,
+                            "allowCredentials": false
+                          }
+                        }
+                      }
+                    ],
+                    "level": "error"
+                  }
+                ],
+                "name": "url",
+                "type": "url",
+                "title": "Video URL"
+              },
+              {
+                "name": "title",
+                "type": "string",
+                "title": "Video Title"
+              },
+              {
+                "validation": [
+                  {
+                    "rules": [
+                      {
+                        "flag": "uri",
+                        "constraint": {
+                          "options": {
+                            "scheme": [
+                              "/^http$/",
+                              "/^https$/"
+                            ],
+                            "allowRelative": false,
+                            "relativeOnly": false,
+                            "allowCredentials": false
+                          }
+                        }
+                      }
+                    ],
+                    "level": "error"
+                  }
+                ],
+                "name": "thumbnail",
+                "type": "url",
+                "title": "Thumbnail URL"
+              }
+            ],
+            "type": "object"
+          }
+        ],
+        "name": "additionalVideos",
+        "type": "array"
+      },
+      {
+        "of": [
+          {
+            "fields": [
+              {
+                "options": {
+                  "list": [
+                    {
+                      "title": "Accessibility",
+                      "value": "accessibility"
+                    },
+                    {
+                      "title": "Safety",
+                      "value": "safety"
+                    },
+                    {
+                      "title": "Location",
+                      "value": "location"
+                    },
+                    {
+                      "title": "Seasonal",
+                      "value": "seasonal"
+                    },
+                    {
+                      "title": "Environment",
+                      "value": "environment"
+                    },
+                    {
+                      "title": "Other",
+                      "value": "other"
+                    }
+                  ]
+                },
+                "name": "category",
+                "type": "string"
+              },
+              {
+                "name": "title",
+                "type": "string",
+                "title": "Notice Title"
+              },
+              {
+                "rows": 3,
+                "name": "description",
+                "type": "text"
+              }
+            ],
+            "type": "object"
+          }
+        ],
+        "name": "specialNotices",
+        "type": "array"
+      },
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "min",
+                "constraint": 1
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "name": "minimumStay",
+        "type": "number",
+        "title": "Minimum Stay (nights)"
+      },
+      {
+        "name": "maximumStay",
+        "type": "number",
+        "title": "Maximum Stay (nights)"
+      },
+      {
+        "initialValue": true,
+        "name": "instantBooking",
+        "type": "boolean",
+        "title": "Instant Booking Available"
+      },
+      {
+        "description": "How far in advance guests can book",
+        "name": "advanceBookingDays",
+        "type": "number"
+      },
+      {
+        "description": "e.g., \"10:00 PM\"",
+        "name": "quietHoursStart",
+        "type": "string"
+      },
+      {
+        "description": "e.g., \"7:00 AM\"",
+        "name": "quietHoursEnd",
+        "type": "string"
+      },
+      {
+        "initialValue": false,
+        "name": "eventsAllowed",
+        "type": "boolean"
+      },
+      {
+        "initialValue": true,
+        "name": "eventsRequireApproval",
+        "type": "boolean"
+      },
+      {
+        "initialValue": false,
+        "name": "smokingAllowed",
+        "type": "boolean"
+      },
+      {
+        "name": "smokingFee",
+        "type": "number",
+        "title": "Smoking Violation Fee"
+      },
+      {
+        "name": "cleaningFee",
+        "type": "number"
+      },
+      {
+        "name": "securityDeposit",
+        "type": "number"
+      },
+      {
+        "description": "Per person per night",
+        "name": "extraGuestFee",
+        "type": "number"
+      }
+    ],
+    "name": "property",
+    "type": "document"
+  },
+  {
+    "fields": [
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "to": [
+          {
+            "type": "property"
+          }
+        ],
+        "name": "property",
+        "type": "reference"
+      },
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "name": "author",
+        "type": "string",
+        "title": "Author Name"
+      },
+      {
+        "name": "location",
+        "type": "string",
+        "title": "Author Location"
+      },
+      {
+        "rows": 4,
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "name": "content",
+        "type": "text",
+        "title": "Review Content"
+      },
+      {
+        "name": "stayDate",
+        "type": "string"
+      },
+      {
+        "initialValue": true,
+        "name": "verified",
+        "type": "boolean",
+        "title": "Verified Guest"
+      }
+    ],
+    "name": "review",
+    "type": "document"
+  },
+  {
+    "fields": [
+      {
+        "fields": [
+          {
+            "name": "heading",
+            "type": "string"
+          },
+          {
+            "name": "subheading",
+            "type": "text"
+          },
+          {
+            "options": {
+              "hotspot": true
+            },
+            "name": "backgroundImage",
+            "type": "image"
+          },
+          {
+            "of": [
+              {
+                "fields": [
+                  {
+                    "name": "icon",
+                    "type": "string",
+                    "title": "Icon Name"
+                  },
+                  {
+                    "name": "text",
+                    "type": "string"
+                  }
+                ],
+                "type": "object"
+              }
+            ],
+            "name": "trustBadges",
+            "type": "array"
+          }
+        ],
+        "name": "hero",
+        "type": "object",
+        "title": "Hero Section"
+      },
+      {
+        "of": [
+          {
+            "fields": [
+              {
+                "name": "name",
+                "type": "string"
+              },
+              {
+                "name": "icon",
+                "type": "string",
+                "title": "Icon Name"
+              }
+            ],
+            "type": "object"
+          }
+        ],
+        "name": "categories",
+        "type": "array"
+      },
+      {
+        "fields": [
+          {
+            "name": "title",
+            "type": "string",
+            "title": "Section Title"
+          },
+          {
+            "name": "description",
+            "type": "text"
+          },
+          {
+            "of": [
+              {
+                "fields": [
+                  {
+                    "name": "title",
+                    "type": "string"
+                  },
+                  {
+                    "name": "description",
+                    "type": "text"
+                  },
+                  {
+                    "options": {
+                      "hotspot": true
+                    },
+                    "name": "image",
+                    "type": "image"
+                  }
+                ],
+                "type": "object"
+              }
+            ],
+            "name": "features",
+            "type": "array",
+            "title": "Feature Cards"
+          }
+        ],
+        "name": "wanderDifference",
+        "type": "object",
+        "title": "The Wander Difference Section"
+      }
+    ],
+    "name": "homePage",
+    "type": "document"
+  },
+  {
+    "fields": [
+      {
+        "fields": [
+          {
+            "name": "heading",
+            "type": "string"
+          },
+          {
+            "name": "subheading",
+            "type": "text"
+          },
+          {
+            "name": "ctaText",
+            "type": "string",
+            "title": "CTA Button Text"
+          },
+          {
+            "of": [
+              {
+                "fields": [
+                  {
+                    "name": "value",
+                    "type": "string"
+                  },
+                  {
+                    "name": "label",
+                    "type": "string"
+                  }
+                ],
+                "type": "object"
+              }
+            ],
+            "name": "stats",
+            "type": "array"
+          }
+        ],
+        "name": "hero",
+        "type": "object",
+        "title": "Hero Section"
+      },
+      {
+        "of": [
+          {
+            "fields": [
+              {
+                "name": "icon",
+                "type": "string",
+                "title": "Icon Name"
+              },
+              {
+                "name": "title",
+                "type": "string"
+              },
+              {
+                "name": "description",
+                "type": "text"
+              }
+            ],
+            "type": "object"
+          }
+        ],
+        "name": "valueProps",
+        "type": "array",
+        "title": "Value Propositions"
+      },
+      {
+        "fields": [
+          {
+            "name": "title",
+            "type": "string"
+          },
+          {
+            "name": "description",
+            "type": "text"
+          },
+          {
+            "options": {
+              "hotspot": true
+            },
+            "name": "image",
+            "type": "image"
+          }
+        ],
+        "name": "brandingSection",
+        "type": "object"
+      },
+      {
+        "fields": [
+          {
+            "name": "title",
+            "type": "string"
+          },
+          {
+            "name": "description",
+            "type": "text"
+          },
+          {
+            "options": {
+              "hotspot": true
+            },
+            "name": "image",
+            "type": "image"
+          }
+        ],
+        "name": "conversionsSection",
+        "type": "object"
+      },
+      {
+        "fields": [
+          {
+            "name": "title",
+            "type": "string"
+          },
+          {
+            "name": "description",
+            "type": "text"
+          },
+          {
+            "options": {
+              "hotspot": true
+            },
+            "name": "image",
+            "type": "image"
+          }
+        ],
+        "name": "checkoutSection",
+        "type": "object"
+      },
+      {
+        "fields": [
+          {
+            "name": "title",
+            "type": "string"
+          },
+          {
+            "name": "description",
+            "type": "text"
+          },
+          {
+            "of": [
+              {
+                "fields": [
+                  {
+                    "name": "name",
+                    "type": "string"
+                  },
+                  {
+                    "options": {
+                      "hotspot": true
+                    },
+                    "name": "logo",
+                    "type": "image"
+                  }
+                ],
+                "type": "object"
+              }
+            ],
+            "name": "integrations",
+            "type": "array"
+          }
+        ],
+        "name": "integrationsSection",
+        "type": "object",
+        "title": "PMS Integrations Section"
+      },
+      {
+        "fields": [
+          {
+            "name": "title",
+            "type": "string"
+          },
+          {
+            "name": "description",
+            "type": "text"
+          },
+          {
+            "name": "ctaText",
+            "type": "string",
+            "title": "CTA Button Text"
+          }
+        ],
+        "name": "auditSection",
+        "type": "object",
+        "title": "Website Audit Section"
+      },
+      {
+        "of": [
+          {
+            "fields": [
+              {
+                "name": "icon",
+                "type": "string",
+                "title": "Icon Name"
+              },
+              {
+                "name": "title",
+                "type": "string"
+              },
+              {
+                "name": "description",
+                "type": "text"
+              }
+            ],
+            "type": "object"
+          }
+        ],
+        "name": "technologyFeatures",
+        "type": "array"
+      },
+      {
+        "of": [
+          {
+            "fields": [
+              {
+                "name": "number",
+                "type": "string",
+                "title": "Step Number"
+              },
+              {
+                "name": "title",
+                "type": "string"
+              },
+              {
+                "name": "description",
+                "type": "text"
+              }
+            ],
+            "type": "object"
+          }
+        ],
+        "name": "howItWorksSteps",
+        "type": "array"
+      },
+      {
+        "of": [
+          {
+            "fields": [
+              {
+                "name": "name",
+                "type": "string",
+                "title": "Plan Name"
+              },
+              {
+                "name": "price",
+                "type": "string"
+              },
+              {
+                "name": "description",
+                "type": "text"
+              },
+              {
+                "of": [
+                  {
+                    "type": "string"
+                  }
+                ],
+                "name": "features",
+                "type": "array"
+              },
+              {
+                "name": "ctaText",
+                "type": "string",
+                "title": "CTA Text"
+              },
+              {
+                "name": "featured",
+                "type": "boolean",
+                "title": "Featured Plan"
+              }
+            ],
+            "type": "object"
+          }
+        ],
+        "name": "pricingPlans",
+        "type": "array"
+      },
+      {
+        "fields": [
+          {
+            "name": "title",
+            "type": "string"
+          },
+          {
+            "name": "description",
+            "type": "text"
+          },
+          {
+            "name": "ctaText",
+            "type": "string",
+            "title": "CTA Button Text"
+          }
+        ],
+        "name": "finalCta",
+        "type": "object",
+        "title": "Final CTA Section"
+      }
+    ],
+    "name": "sitesPage",
+    "type": "document"
+  },
+  {
+    "fields": [
+      {
+        "name": "siteName",
+        "type": "string"
+      },
+      {
+        "options": {
+          "hotspot": true
+        },
+        "name": "logo",
+        "type": "image"
+      },
+      {
+        "of": [
+          {
+            "fields": [
+              {
+                "name": "label",
+                "type": "string"
+              },
+              {
+                "name": "href",
+                "type": "string",
+                "title": "Link"
+              }
+            ],
+            "type": "object"
+          }
+        ],
+        "name": "headerNavigation",
+        "type": "array"
+      },
+      {
+        "fields": [
+          {
+            "of": [
+              {
+                "fields": [
+                  {
+                    "name": "title",
+                    "type": "string",
+                    "title": "Column Title"
+                  },
+                  {
+                    "of": [
+                      {
+                        "fields": [
+                          {
+                            "name": "label",
+                            "type": "string"
+                          },
+                          {
+                            "name": "href",
+                            "type": "string",
+                            "title": "Link"
+                          }
+                        ],
+                        "type": "object"
+                      }
+                    ],
+                    "name": "links",
+                    "type": "array"
+                  }
+                ],
+                "type": "object"
+              }
+            ],
+            "name": "columns",
+            "type": "array",
+            "title": "Footer Columns"
+          },
+          {
+            "fields": [
+              {
+                "name": "title",
+                "type": "string"
+              },
+              {
+                "name": "description",
+                "type": "text"
+              },
+              {
+                "name": "buttonText",
+                "type": "string"
+              }
+            ],
+            "name": "newsletter",
+            "type": "object",
+            "title": "Newsletter Section"
+          },
+          {
+            "of": [
+              {
+                "fields": [
+                  {
+                    "name": "platform",
+                    "type": "string"
+                  },
+                  {
+                    "name": "url",
+                    "type": "string",
+                    "title": "URL"
+                  }
+                ],
+                "type": "object"
+              }
+            ],
+            "name": "socialLinks",
+            "type": "array"
+          },
+          {
+            "name": "copyrightText",
+            "type": "string"
+          }
+        ],
+        "name": "footer",
+        "type": "object"
+      }
+    ],
+    "name": "siteSettings",
+    "type": "document"
+  }
+]

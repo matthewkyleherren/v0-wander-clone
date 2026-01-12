@@ -75,19 +75,24 @@ export default {
       type: "number",
     },
     {
-      name: "mainImageUrl",
-      title: "Main Image URL",
-      type: "url",
-      validation: (Rule) => Rule.uri({ allowRelative: false }),
+      name: "mainImage",
+      title: "Main Image",
+      type: "image",
+      options: {
+        hotspot: true,
+      },
+      validation: (Rule) => Rule.required(),
     },
     {
-      name: "imageUrls",
-      title: "Gallery Image URLs",
+      name: "images",
+      title: "Gallery Images",
       type: "array",
       of: [
         {
-          type: "url",
-          validation: (Rule) => Rule.uri({ allowRelative: false }),
+          type: "image",
+          options: {
+            hotspot: true,
+          },
         },
       ],
     },
@@ -144,10 +149,12 @@ export default {
             { name: "name", type: "string", title: "Bedroom Name" },
             { name: "beds", type: "string", title: "Bed Configuration" },
             {
-              name: "imageUrl",
-              type: "url",
-              title: "Bedroom Image URL",
-              validation: (Rule) => Rule.uri({ allowRelative: false }),
+              name: "image",
+              type: "image",
+              title: "Bedroom Image",
+              options: {
+                hotspot: true,
+              },
             },
           ],
         },
