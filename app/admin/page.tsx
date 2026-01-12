@@ -2,6 +2,9 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { PlusCircle } from "lucide-react";
 
+// Force dynamic rendering for this page
+export const dynamic = "force-dynamic";
+
 async function getProperties() {
   try {
     const projectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID || "124czkwg";
