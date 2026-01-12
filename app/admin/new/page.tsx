@@ -1,4 +1,7 @@
-import { PropertyForm } from "@/components/admin/property-form"
+import { PropertyForm } from "@/components/admin/property-form";
+
+// Force dynamic rendering for this page
+export const dynamic = "force-dynamic";
 
 export default function NewPropertyPage() {
   return (
@@ -8,5 +11,5 @@ export default function NewPropertyPage() {
         <PropertyForm />
       </div>
     </div>
-  )
+  );
 }

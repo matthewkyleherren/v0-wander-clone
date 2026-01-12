@@ -1,14 +1,26 @@
-import type { Property, PropertyCard, Review, HomePage, SitesPage, SiteSettings } from "./types"
+import type {
+  Property,
+  PropertyCard,
+  Review,
+  HomePage,
+  SitesPage,
+  SiteSettings,
+} from "./types";
 
-const projectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID
-const dataset = process.env.NEXT_PUBLIC_SANITY_DATASET || "production"
+const projectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID;
+const dataset = process.env.NEXT_PUBLIC_SANITY_DATASET || "production";
 
-async function sanityFetch<T>(query: string, params: Record<string, string> = {}): Promise<T> {
-  const url = new URL(`https://${projectId}.apicdn.sanity.io/v2024-01-01/data/query/${dataset}`)
-  url.searchParams.set("query", query)
+async function sanityFetch<T>(
+  query: string,
+  params: Record<string, string> = {},
+): Promise<T> {
+  const url = new URL(
+    `https://${projectId}.apicdn.sanity.io/v2024-01-01/data/query/${dataset}`,
+  );
+  url.searchParams.set("query", query);
 
   for (const [key, value] of Object.entries(params)) {
-    url.searchParams.set(`$${key}`, JSON.stringify(value))
+    url.searchParams.set(`$${key}`, JSON.stringify(value));
   }
 
   const response = await fetch(url.toString(), {
@@ -17,32 +29,35 @@ async function sanityFetch<T>(query: string, params: Record<string, string> = {}
       "Content-Type": "application/json",
     },
     next: { revalidate: 60 },
-  })
+  });
 
   if (!response.ok) {
-    const errorText = await response.text()
-    console.error("[v0] Sanity fetch error:", errorText)
-    throw new Error(`Sanity fetch failed: ${response.status}`)
+    const errorText = await response.text();
+    console.error("[v0] Sanity fetch error:", errorText);
+    throw new Error(`Sanity fetch failed: ${response.status}`);
   }
 
-  const data = await response.json()
-  return data.result
+  const data = await response.json();
+  return data.result;
 }
 
 function mapPropertyCard(doc: Record<string, unknown>): PropertyCard {
-  const imageUrl = (doc.mainImageUrl as string) || "/luxury-vacation-rental.jpg"
+  const imageUrl =
+    (doc.mainImageUrl as string) || "/luxury-vacation-rental.jpg";
+  const slug = doc.slug as { current: string } | string;
+  const slugValue = typeof slug === "string" ? slug : slug.current;
 
   return {
     _id: doc._id as string,
     name: (doc.name || doc.title) as string,
-    slug: doc.slug as { current: string } | string,
+    slug: typeof slug === "string" ? { current: slug } : slug,
     location: doc.location as string,
     pricePerNight: doc.pricePerNight as number,
     rating: doc.rating as number,
     reviewCount: doc.reviewCount as number,
     image: imageUrl,
     amenities: (doc.amenities as string[]) || [],
-  }
+  };
 }
 
 // Fetch all properties
@@ -59,17 +74,19 @@ export async function getProperties(): Promise<PropertyCard[]> {
       reviewCount,
       mainImageUrl,
       amenities
-    }`
-    const result = await sanityFetch<Record<string, unknown>[]>(query)
-    return (result || []).map(mapPropertyCard)
+    }`;
+    const result = await sanityFetch<Record<string, unknown>[]>(query);
+    return (result || []).map(mapPropertyCard);
   } catch (error) {
-    console.error("[v0] Error fetching properties:", error)
-    return []
+    console.error("[v0] Error fetching properties:", error);
+    return [];
   }
 }
 
 // Fetch a single property by slug
-export async function getPropertyBySlug(slug: string): Promise<Property | null> {
+export async function getPropertyBySlug(
+  slug: string,
+): Promise<Property | null> {
   try {
     const query = `*[_type == "property" && slug.current == $slug][0] {
       _id,
@@ -106,13 +123,16 @@ export async function getPropertyBySlug(slug: string): Promise<Property | null> 
       featured,
       categories,
       bedroomDetails
-    }`
-    const result = await sanityFetch<Record<string, unknown> | null>(query, { slug })
+    }`;
+    const result = await sanityFetch<Record<string, unknown> | null>(query, {
+      slug,
+    });
 
-    if (!result) return null
+    if (!result) return null;
 
-    const mainImage = (result.mainImageUrl as string) || "/luxury-vacation-rental.jpg"
-    const galleryImages = (result.imageUrls as string[]) || []
+    const mainImage =
+      (result.mainImageUrl as string) || "/luxury-vacation-rental.jpg";
+    const galleryImages = (result.imageUrls as string[]) || [];
 
     // Map to Property type with correct image fields
     return {
@@ -121,10 +141,10 @@ export async function getPropertyBySlug(slug: string): Promise<Property | null> 
       images: galleryImages.length > 0 ? galleryImages : undefined,
       guests: result.guests || result.maxGuests,
       bedroomDetails: result.bedroomDetails,
-    } as Property
+    } as Property;
   } catch (error) {
-    console.error("[v0] Error fetching property:", error)
-    return null
+    console.error("[v0] Error fetching property:", error);
+    return null;
   }
 }
 
@@ -143,17 +163,19 @@ export async function getFeaturedProperties(): Promise<PropertyCard[]> {
       mainImageUrl,
       amenities,
       featured
-    }`
-    const result = await sanityFetch<Record<string, unknown>[]>(query)
-    return (result || []).map(mapPropertyCard)
+    }`;
+    const result = await sanityFetch<Record<string, unknown>[]>(query);
+    return (result || []).map(mapPropertyCard);
   } catch (error) {
-    console.error("[v0] Error fetching featured properties:", error)
-    return []
+    console.error("[v0] Error fetching featured properties:", error);
+    return [];
   }
 }
 
 // Fetch properties by category
-export async function getPropertiesByCategory(category: string): Promise<PropertyCard[]> {
+export async function getPropertiesByCategory(
+  category: string,
+): Promise<PropertyCard[]> {
   try {
     const query = `*[_type == "property" && $category in categories] | order(name asc) {
       _id,
@@ -168,17 +190,21 @@ export async function getPropertiesByCategory(category: string): Promise<Propert
       amenities,
       featured,
       categories
-    }`
-    const result = await sanityFetch<Record<string, unknown>[]>(query, { category })
-    return (result || []).map(mapPropertyCard)
+    }`;
+    const result = await sanityFetch<Record<string, unknown>[]>(query, {
+      category,
+    });
+    return (result || []).map(mapPropertyCard);
   } catch (error) {
-    console.error("[v0] Error fetching properties by category:", error)
-    return []
+    console.error("[v0] Error fetching properties by category:", error);
+    return [];
   }
 }
 
 // Fetch reviews for a property
-export async function getReviewsByPropertyId(propertyId: string): Promise<Review[]> {
+export async function getReviewsByPropertyId(
+  propertyId: string,
+): Promise<Review[]> {
   try {
     const query = `*[_type == "review" && property._ref == $propertyId] | order(stayDate desc) {
       _id,
@@ -187,12 +213,12 @@ export async function getReviewsByPropertyId(propertyId: string): Promise<Review
       content,
       stayDate,
       verified
-    }`
-    const result = await sanityFetch<Review[]>(query, { propertyId })
-    return result || []
+    }`;
+    const result = await sanityFetch<Review[]>(query, { propertyId });
+    return result || [];
   } catch (error) {
-    console.error("[v0] Error fetching reviews:", error)
-    return []
+    console.error("[v0] Error fetching reviews:", error);
+    return [];
   }
 }
 
@@ -223,12 +249,12 @@ export async function getHomePage(): Promise<HomePage | null> {
           "image": image.asset->url
         }
       }
-    }`
-    const result = await sanityFetch<HomePage | null>(query)
-    return result
+    }`;
+    const result = await sanityFetch<HomePage | null>(query);
+    return result;
   } catch (error) {
-    console.error("[v0] Error fetching home page:", error)
-    return null
+    console.error("[v0] Error fetching home page:", error);
+    return null;
   }
 }
 
@@ -302,12 +328,12 @@ export async function getSitesPage(): Promise<SitesPage | null> {
         description,
         ctaText
       }
-    }`
-    const result = await sanityFetch<SitesPage | null>(query)
-    return result
+    }`;
+    const result = await sanityFetch<SitesPage | null>(query);
+    return result;
   } catch (error) {
-    console.error("[v0] Error fetching sites page:", error)
-    return null
+    console.error("[v0] Error fetching sites page:", error);
+    return null;
   }
 }
 
@@ -341,11 +367,11 @@ export async function getSiteSettings(): Promise<SiteSettings | null> {
         },
         copyrightText
       }
-    }`
-    const result = await sanityFetch<SiteSettings | null>(query)
-    return result
+    }`;
+    const result = await sanityFetch<SiteSettings | null>(query);
+    return result;
   } catch (error) {
-    console.error("[v0] Error fetching site settings:", error)
-    return null
+    console.error("[v0] Error fetching site settings:", error);
+    return null;
   }
 }

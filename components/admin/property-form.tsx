@@ -1,23 +1,23 @@
-"use client"
+"use client";
 
-import type React from "react"
+import type React from "react";
 
-import { useState } from "react"
-import { useRouter } from "next/navigation"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { Textarea } from "@/components/ui/textarea"
-import { Card } from "@/components/ui/card"
-import { PlusCircle, Trash2, Save } from "lucide-react"
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
+import { Card } from "@/components/ui/card";
+import { PlusCircle, Trash2, Save } from "lucide-react";
 
 interface PropertyFormProps {
-  property?: any
+  property?: any;
 }
 
 export function PropertyForm({ property }: PropertyFormProps) {
-  const router = useRouter()
-  const [loading, setLoading] = useState(false)
+  const router = useRouter();
+  const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     name: property?.name || "",
     slug: property?.slug || { _type: "slug", current: "" },
@@ -42,55 +42,59 @@ export function PropertyForm({ property }: PropertyFormProps) {
     checkInTime: property?.checkInTime || "4:00 PM",
     checkOutTime: property?.checkOutTime || "11:00 AM",
     cancellationPolicy: property?.cancellationPolicy || "",
-  })
+  });
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    setLoading(true)
+    e.preventDefault();
+    setLoading(true);
 
     try {
-      const url = property ? `/api/admin/properties/${property._id}` : "/api/admin/properties"
-      const method = property ? "PATCH" : "POST"
+      const url = property
+        ? `/api/admin/properties/${property._id}`
+        : "/api/admin/properties";
+      const method = property ? "PATCH" : "POST";
 
       const response = await fetch(url, {
         method,
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
-      })
+      });
 
       if (!response.ok) {
-        const error = await response.json()
-        throw new Error(error.error || "Failed to save property")
+        const error = await response.json();
+        throw new Error(error.error || "Failed to save property");
       }
 
-      router.push("/admin")
-      router.refresh()
+      router.push("/admin");
+      router.refresh();
     } catch (error) {
-      alert(error instanceof Error ? error.message : "Failed to save property")
+      alert(error instanceof Error ? error.message : "Failed to save property");
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
-  }
+  };
 
   const addImageUrl = () => {
     setFormData({
       ...formData,
       imageUrls: [...formData.imageUrls, ""],
-    })
-  }
+    });
+  };
 
   const updateImageUrl = (index: number, value: string) => {
-    const newUrls = [...formData.imageUrls]
-    newUrls[index] = value
-    setFormData({ ...formData, imageUrls: newUrls })
-  }
+    const newUrls = [...formData.imageUrls];
+    newUrls[index] = value;
+    setFormData({ ...formData, imageUrls: newUrls });
+  };
 
   const removeImageUrl = (index: number) => {
     setFormData({
       ...formData,
-      imageUrls: formData.imageUrls.filter((_, i) => i !== index),
-    })
-  }
+      imageUrls: formData.imageUrls.filter(
+        (_: string, i: number) => i !== index,
+      ),
+    });
+  };
 
   return (
     <form onSubmit={handleSubmit} className="space-y-8">
@@ -102,7 +106,9 @@ export function PropertyForm({ property }: PropertyFormProps) {
             <Input
               id="name"
               value={formData.name}
-              onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+              onChange={(e) =>
+                setFormData({ ...formData, name: e.target.value })
+              }
               required
             />
           </div>
@@ -128,7 +134,9 @@ export function PropertyForm({ property }: PropertyFormProps) {
             <Input
               id="location"
               value={formData.location}
-              onChange={(e) => setFormData({ ...formData, location: e.target.value })}
+              onChange={(e) =>
+                setFormData({ ...formData, location: e.target.value })
+              }
               required
             />
           </div>
@@ -138,7 +146,9 @@ export function PropertyForm({ property }: PropertyFormProps) {
             <Textarea
               id="description"
               value={formData.description}
-              onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+              onChange={(e) =>
+                setFormData({ ...formData, description: e.target.value })
+              }
               rows={4}
             />
           </div>
@@ -150,7 +160,12 @@ export function PropertyForm({ property }: PropertyFormProps) {
                 id="pricePerNight"
                 type="number"
                 value={formData.pricePerNight}
-                onChange={(e) => setFormData({ ...formData, pricePerNight: Number(e.target.value) })}
+                onChange={(e) =>
+                  setFormData({
+                    ...formData,
+                    pricePerNight: Number(e.target.value),
+                  })
+                }
                 required
               />
             </div>
@@ -161,7 +176,9 @@ export function PropertyForm({ property }: PropertyFormProps) {
                 id="sqft"
                 type="number"
                 value={formData.sqft}
-                onChange={(e) => setFormData({ ...formData, sqft: Number(e.target.value) })}
+                onChange={(e) =>
+                  setFormData({ ...formData, sqft: Number(e.target.value) })
+                }
               />
             </div>
           </div>
@@ -173,7 +190,9 @@ export function PropertyForm({ property }: PropertyFormProps) {
                 id="guests"
                 type="number"
                 value={formData.guests}
-                onChange={(e) => setFormData({ ...formData, guests: Number(e.target.value) })}
+                onChange={(e) =>
+                  setFormData({ ...formData, guests: Number(e.target.value) })
+                }
               />
             </div>
 
@@ -183,7 +202,9 @@ export function PropertyForm({ property }: PropertyFormProps) {
                 id="bedrooms"
                 type="number"
                 value={formData.bedrooms}
-                onChange={(e) => setFormData({ ...formData, bedrooms: Number(e.target.value) })}
+                onChange={(e) =>
+                  setFormData({ ...formData, bedrooms: Number(e.target.value) })
+                }
               />
             </div>
 
@@ -193,7 +214,9 @@ export function PropertyForm({ property }: PropertyFormProps) {
                 id="beds"
                 type="number"
                 value={formData.beds}
-                onChange={(e) => setFormData({ ...formData, beds: Number(e.target.value) })}
+                onChange={(e) =>
+                  setFormData({ ...formData, beds: Number(e.target.value) })
+                }
               />
             </div>
 
@@ -204,7 +227,12 @@ export function PropertyForm({ property }: PropertyFormProps) {
                 type="number"
                 step="0.5"
                 value={formData.bathrooms}
-                onChange={(e) => setFormData({ ...formData, bathrooms: Number(e.target.value) })}
+                onChange={(e) =>
+                  setFormData({
+                    ...formData,
+                    bathrooms: Number(e.target.value),
+                  })
+                }
               />
             </div>
           </div>
@@ -219,22 +247,38 @@ export function PropertyForm({ property }: PropertyFormProps) {
             <Input
               id="mainImageUrl"
               value={formData.mainImageUrl}
-              onChange={(e) => setFormData({ ...formData, mainImageUrl: e.target.value })}
+              onChange={(e) =>
+                setFormData({ ...formData, mainImageUrl: e.target.value })
+              }
               placeholder="https://..."
             />
           </div>
 
           <div>
             <Label>Gallery Images</Label>
-            {formData.imageUrls.map((url, index) => (
+            {formData.imageUrls.map((url: string, index: number) => (
               <div key={index} className="mt-2 flex gap-2">
-                <Input value={url} onChange={(e) => updateImageUrl(index, e.target.value)} placeholder="https://..." />
-                <Button type="button" variant="outline" size="icon" onClick={() => removeImageUrl(index)}>
+                <Input
+                  value={url}
+                  onChange={(e) => updateImageUrl(index, e.target.value)}
+                  placeholder="https://..."
+                />
+                <Button
+                  type="button"
+                  variant="outline"
+                  size="icon"
+                  onClick={() => removeImageUrl(index)}
+                >
                   <Trash2 className="h-4 w-4" />
                 </Button>
               </div>
             ))}
-            <Button type="button" variant="outline" onClick={addImageUrl} className="mt-2 bg-transparent">
+            <Button
+              type="button"
+              variant="outline"
+              onClick={addImageUrl}
+              className="mt-2 bg-transparent"
+            >
               <PlusCircle className="mr-2 h-4 w-4" />
               Add Image
             </Button>
@@ -263,12 +307,20 @@ export function PropertyForm({ property }: PropertyFormProps) {
       <div className="flex gap-4">
         <Button type="submit" disabled={loading}>
           <Save className="mr-2 h-4 w-4" />
-          {loading ? "Saving..." : property ? "Update Property" : "Create Property"}
+          {loading
+            ? "Saving..."
+            : property
+              ? "Update Property"
+              : "Create Property"}
         </Button>
-        <Button type="button" variant="outline" onClick={() => router.push("/admin")}>
+        <Button
+          type="button"
+          variant="outline"
+          onClick={() => router.push("/admin")}
+        >
           Cancel
         </Button>
       </div>
     </form>
-  )
+  );
 }
