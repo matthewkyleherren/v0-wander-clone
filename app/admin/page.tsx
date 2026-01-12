@@ -8,13 +8,17 @@ async function getProperties() {
     const dataset = process.env.NEXT_PUBLIC_SANITY_DATASET || "properties"
     const token = process.env.SANITY_API_TOKEN
 
+    console.log("[v0] Fetching properties with:", { projectId, dataset, hasToken: !!token })
+
     if (!token) {
-      console.error("[v0] Missing SANITY_API_TOKEN")
+      console.error("[v0] Missing SANITY_API_TOKEN - properties cannot be fetched")
       return []
     }
 
     const query = encodeURIComponent('*[_type == "property"] | order(_createdAt desc)')
     const url = `https://api.sanity.io/v2021-10-21/data/query/${projectId}/${dataset}?query=${query}`
+
+    console.log("[v0] Fetching from URL:", url)
 
     const response = await fetch(url, {
       headers: {
@@ -23,7 +27,16 @@ async function getProperties() {
       cache: "no-store",
     })
 
+    console.log("[v0] Response status:", response.status)
+
+    if (!response.ok) {
+      const errorText = await response.text()
+      console.error("[v0] Sanity API error:", errorText)
+      return []
+    }
+
     const data = await response.json()
+    console.log("[v0] Fetched properties count:", data.result?.length || 0)
     return data.result || []
   } catch (error) {
     console.error("[v0] Error fetching properties:", error)
