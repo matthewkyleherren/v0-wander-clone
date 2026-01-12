@@ -94,7 +94,7 @@ export function CalendarSection({ propertyName }: CalendarSectionProps) {
             Choose your check-in & check-out dates
           </p>
 
-          <div className="border border-gray-100 rounded-2xl p-8 bg-white shadow-[0_1px_2px_rgba(0,0,0,0.06),0_2px_6px_rgba(0,0,0,0.04)] hover:shadow-[0_2px_4px_rgba(0,0,0,0.08),0_4px_12px_rgba(0,0,0,0.06)] transition-all duration-200">
+          <div className="border border-gray-100 dark:border-gray-800 rounded-2xl p-8 bg-white dark:bg-gray-900 shadow-[0_1px_2px_rgba(0,0,0,0.06),0_2px_6px_rgba(0,0,0,0.04)] hover:shadow-[0_2px_4px_rgba(0,0,0,0.08),0_4px_12px_rgba(0,0,0,0.06)] transition-all duration-200">
             {/* Calendar Header with Navigation */}
             <div className="flex items-center justify-between mb-8">
               <Button
@@ -107,10 +107,10 @@ export function CalendarSection({ propertyName }: CalendarSectionProps) {
               </Button>
 
               <div className="flex gap-24">
-                <h3 className="text-[18px] font-medium text-gray-900">
+                <h3 className="text-[18px] font-medium text-gray-900 dark:text-gray-100">
                   {months[firstMonth.getMonth()]} {firstMonth.getFullYear()}
                 </h3>
-                <h3 className="text-[18px] font-medium text-gray-900">
+                <h3 className="text-[18px] font-medium text-gray-900 dark:text-gray-100">
                   {months[secondMonth.getMonth()]} {secondMonth.getFullYear()}
                 </h3>
               </div>
@@ -149,8 +149,8 @@ export function CalendarSection({ propertyName }: CalendarSectionProps) {
                       disabled={!item.isCurrentMonth || item.isPast}
                       className={`h-10 flex items-center justify-center text-[15px] rounded-lg transition-colors ${
                         !item.isCurrentMonth || item.isPast
-                          ? "text-gray-300 cursor-not-allowed"
-                          : "text-gray-900 hover:bg-gray-100 cursor-pointer"
+                          ? "text-gray-300 dark:text-gray-700 cursor-not-allowed"
+                          : "text-gray-900 dark:text-gray-100 hover:bg-gray-100 dark:hover:bg-gray-800 cursor-pointer"
                       }`}
                     >
                       {item.day || ""}

@@ -164,33 +164,36 @@ export function ReviewsSection({ rating, reviewCount }: ReviewsSectionProps) {
         {mockReviews.map((review) => (
           <div
             key={review.id}
-            className="bg-white border border-gray-100 rounded-2xl p-6 flex flex-col min-h-[200px] shadow-[0_1px_2px_rgba(0,0,0,0.06),0_2px_6px_rgba(0,0,0,0.04)] hover:shadow-[0_2px_4px_rgba(0,0,0,0.08),0_4px_12px_rgba(0,0,0,0.06)] transition-all duration-200"
+            className="bg-white dark:bg-gray-900 border border-gray-100 dark:border-gray-800 rounded-2xl p-6 flex flex-col min-h-[200px] shadow-[0_1px_2px_rgba(0,0,0,0.06),0_2px_6px_rgba(0,0,0,0.04)] hover:shadow-[0_2px_4px_rgba(0,0,0,0.08),0_4px_12px_rgba(0,0,0,0.06)] transition-all duration-200"
           >
             {/* Stars */}
             <div className="flex gap-0.5 mb-4">
               {[...Array(5)].map((_, i) => (
-                <Star key={i} className="h-4 w-4 fill-gray-900 text-gray-900" />
+                <Star
+                  key={i}
+                  className="h-4 w-4 fill-gray-900 dark:fill-gray-100 text-gray-900 dark:text-gray-100"
+                />
               ))}
             </div>
 
             {/* Review text - grows to fill space */}
-            <p className="text-[14px] text-gray-600 leading-relaxed flex-1 line-clamp-4">
+            <p className="text-[14px] text-gray-600 dark:text-gray-400 leading-relaxed flex-1 line-clamp-4">
               {review.content}
             </p>
 
             {/* Author - at bottom */}
-            <div className="flex items-center gap-3 mt-4 pt-4 border-t border-gray-100">
+            <div className="flex items-center gap-3 mt-4 pt-4 border-t border-gray-100 dark:border-gray-800">
               <Avatar className="h-9 w-9">
                 <AvatarImage src={review.avatar} />
-                <AvatarFallback className="bg-gray-100 text-gray-600 text-sm">
+                <AvatarFallback className="bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 text-sm">
                   {review.author.charAt(0)}
                 </AvatarFallback>
               </Avatar>
               <div>
-                <p className="text-[14px] font-medium text-gray-900">
+                <p className="text-[14px] font-medium text-gray-900 dark:text-gray-100">
                   {review.author}
                 </p>
-                <p className="text-[12px] text-gray-500">
+                <p className="text-[12px] text-gray-500 dark:text-gray-400">
                   Stayed in {review.stayDate}
                 </p>
               </div>

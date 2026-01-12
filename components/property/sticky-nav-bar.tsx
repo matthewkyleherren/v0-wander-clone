@@ -79,8 +79,8 @@ export function StickyNavBar({ rating, reviewCount }: StickyNavBarProps) {
           {/* Right Side - Rating and CTA */}
           <div className="flex items-center gap-4">
             <div className="flex items-center gap-1.5">
-              <Star className="h-4 w-4 fill-current text-gray-900" />
-              <span className="text-sm font-medium text-gray-900">
+              <Star className="h-4 w-4 fill-current text-gray-900 dark:text-gray-100" />
+              <span className="text-sm font-medium text-gray-900 dark:text-gray-100">
                 {rating}
               </span>
             </div>
