@@ -248,14 +248,6 @@ export default async function PropertyPage({ params }: PropertyPageProps) {
             {/* Highlight Tags */}
             <HighlightTags highlights={displayData.highlights} />
 
-            {/* Guarantee Section */}
-            <GuaranteeSection
-              checkInTime={displayData.checkInTime}
-              checkOutTime={displayData.checkOutTime}
-              petsAllowed={displayData.petsAllowed}
-              cancellationPolicy={displayData.cancellationPolicy}
-            />
-
             {/* About Section */}
             <AboutSection
               description={displayData.description}
