@@ -126,7 +126,7 @@ export function Footer() {
             {/* Logo and Copyright */}
             <div className="flex items-center gap-3">
               <span className="text-sm font-medium text-foreground">offgrid</span>
-              <span className="text-xs text-muted-foreground">© 2026 OffGrid. All rights reserved.</span>
+              <span className="text-xs text-muted-foreground">© 2026 WRK, Inc. All rights reserved.</span>
             </div>
 
             {/* Social Links */}
