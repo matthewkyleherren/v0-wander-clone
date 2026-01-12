@@ -3,12 +3,32 @@ import Link from "next/link"
 import { PlusCircle } from "lucide-react"
 
 async function getProperties() {
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000"
-  const response = await fetch(`${baseUrl}/api/admin/properties`, {
-    cache: "no-store",
-  })
-  const data = await response.json()
-  return data.properties || []
+  try {
+    const projectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID || "124czkwg"
+    const dataset = process.env.NEXT_PUBLIC_SANITY_DATASET || "properties"
+    const token = process.env.SANITY_API_TOKEN
+
+    if (!token) {
+      console.error("[v0] Missing SANITY_API_TOKEN")
+      return []
+    }
+
+    const query = encodeURIComponent('*[_type == "property"] | order(_createdAt desc)')
+    const url = `https://api.sanity.io/v2021-10-21/data/query/${projectId}/${dataset}?query=${query}`
+
+    const response = await fetch(url, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+      cache: "no-store",
+    })
+
+    const data = await response.json()
+    return data.result || []
+  } catch (error) {
+    console.error("[v0] Error fetching properties:", error)
+    return []
+  }
 }
 
 export default async function AdminPage() {
