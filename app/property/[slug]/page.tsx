@@ -15,6 +15,7 @@ import { VideoTourCarousel } from "@/components/property/video-tour-carousel";
 import { AmenitiesGrid } from "@/components/property/amenities-grid";
 import { SleepingSectionNew } from "@/components/property/sleeping-section-new";
 import { LocationSectionNew } from "@/components/property/location-section-new";
+import { CalendarSection } from "@/components/property/calendar-section";
 import { ReviewsSection } from "@/components/property/reviews-section";
 import { ThingsToKnow } from "@/components/property/things-to-know";
 import { BeforeYouBook } from "@/components/property/before-you-book";
@@ -304,11 +305,17 @@ export default async function PropertyPage({ params }: PropertyPageProps) {
 
         {/* Full-width sections after the two-column layout */}
         <div className="mt-0">
+          {/* Calendar Section */}
+          <CalendarSection propertyName={displayData.name} />
+
           {/* Reviews Section */}
           <ReviewsSection
             rating={displayData.rating}
             reviewCount={displayData.reviewCount}
           />
+
+          {/* Concierge Section */}
+          <ConciergeSection />
 
           {/* Things to Know */}
           <ThingsToKnow
