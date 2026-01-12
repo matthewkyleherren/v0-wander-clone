@@ -14,7 +14,7 @@ export function AboutSection({ description, propertyName }: AboutSectionProps) {
   const shouldTruncate = description.length > 300;
 
   return (
-    <section className="py-10 border-b border-gray-100">
+    <section id="about" className="py-10 border-b border-gray-100">
       <h2 className="text-[22px] font-normal mb-5 text-gray-900">
         About the property
       </h2>

@@ -32,7 +32,7 @@ export function SleepingSectionNew({ bedrooms }: SleepingSectionProps) {
   };
 
   return (
-    <section className="py-10 border-b border-gray-100">
+    <section id="sleep" className="py-10 border-b border-gray-100">
       <div className="flex items-center justify-between mb-6">
         <h2 className="text-[22px] font-normal text-gray-900">
           Where you'll sleep

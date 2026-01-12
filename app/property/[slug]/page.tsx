@@ -1,4 +1,7 @@
 import { getPropertyBySlug } from "@/lib/sanity/fetch";
+import { Header } from "@/components/header";
+import { Footer } from "@/components/footer";
+import { StickyNavBar } from "@/components/property/sticky-nav-bar";
 import { PropertyHero } from "@/components/property/property-hero";
 import { ImageGalleryNew } from "@/components/property/image-gallery-new";
 import {
@@ -206,8 +209,17 @@ export default async function PropertyPage({ params }: PropertyPageProps) {
 
   return (
     <div className="min-h-screen bg-background">
+      {/* Header */}
+      <Header />
+
+      {/* Sticky Navigation Bar */}
+      <StickyNavBar
+        rating={displayData.rating}
+        reviewCount={displayData.reviewCount}
+      />
+
       {/* Main Content */}
-      <main className="max-w-[1400px] mx-auto px-4 lg:px-8">
+      <main className="max-w-[1400px] mx-auto px-4 lg:px-8 pt-14">
         {/* Hero Section - Mobile header + Desktop title */}
         <PropertyHero
           name={displayData.name}
@@ -275,45 +287,6 @@ export default async function PropertyPage({ params }: PropertyPageProps) {
               nearbyPlaces={displayData.nearbyPlaces}
               coordinates={displayData.coordinates}
             />
-
-            {/* Reviews Section */}
-            <ReviewsSection
-              rating={displayData.rating}
-              reviewCount={displayData.reviewCount}
-            />
-
-            {/* Things to Know */}
-            <ThingsToKnow
-              checkInTime={displayData.checkInTime}
-              checkOutTime={displayData.checkOutTime}
-              guests={displayData.guests}
-              petsAllowed={displayData.petsAllowed}
-              petFee={displayData.petFee}
-              maxPets={displayData.maxPets}
-              smokingAllowed={displayData.smokingAllowed}
-              smokingFee={displayData.smokingFee}
-              eventsAllowed={displayData.eventsAllowed}
-              eventsRequireApproval={displayData.eventsRequireApproval}
-              quietHoursStart={displayData.quietHoursStart}
-              quietHoursEnd={displayData.quietHoursEnd}
-              minimumStay={displayData.minimumStay}
-              maximumStay={displayData.maximumStay}
-              cancellationPolicy={displayData.cancellationPolicy}
-              houseRules={displayData.houseRules}
-            />
-
-            {/* Before You Book */}
-            <BeforeYouBook
-              specialNotices={displayData.specialNotices}
-              petsAllowed={displayData.petsAllowed}
-              petFee={displayData.petFee}
-              maxPets={displayData.maxPets}
-              petRules={displayData.petRules}
-              guests={displayData.guests}
-            />
-
-            {/* Bottom spacing for mobile sticky bar */}
-            <div className="h-24 lg:hidden" />
           </div>
 
           {/* Right column - Booking Sidebar (Desktop only) */}
@@ -328,6 +301,48 @@ export default async function PropertyPage({ params }: PropertyPageProps) {
             />
           </div>
         </div>
+
+        {/* Full-width sections after the two-column layout */}
+        <div className="mt-0">
+          {/* Reviews Section */}
+          <ReviewsSection
+            rating={displayData.rating}
+            reviewCount={displayData.reviewCount}
+          />
+
+          {/* Things to Know */}
+          <ThingsToKnow
+            checkInTime={displayData.checkInTime}
+            checkOutTime={displayData.checkOutTime}
+            guests={displayData.guests}
+            petsAllowed={displayData.petsAllowed}
+            petFee={displayData.petFee}
+            maxPets={displayData.maxPets}
+            smokingAllowed={displayData.smokingAllowed}
+            smokingFee={displayData.smokingFee}
+            eventsAllowed={displayData.eventsAllowed}
+            eventsRequireApproval={displayData.eventsRequireApproval}
+            quietHoursStart={displayData.quietHoursStart}
+            quietHoursEnd={displayData.quietHoursEnd}
+            minimumStay={displayData.minimumStay}
+            maximumStay={displayData.maximumStay}
+            cancellationPolicy={displayData.cancellationPolicy}
+            houseRules={displayData.houseRules}
+          />
+
+          {/* Before You Book */}
+          <BeforeYouBook
+            specialNotices={displayData.specialNotices}
+            petsAllowed={displayData.petsAllowed}
+            petFee={displayData.petFee}
+            maxPets={displayData.maxPets}
+            petRules={displayData.petRules}
+            guests={displayData.guests}
+          />
+
+          {/* Bottom spacing for mobile sticky bar */}
+          <div className="h-24 lg:hidden" />
+        </div>
       </main>
 
       {/* Sticky Booking Bar (Mobile only) */}
@@ -336,6 +351,9 @@ export default async function PropertyPage({ params }: PropertyPageProps) {
         rating={displayData.rating}
         reviewCount={displayData.reviewCount}
       />
+
+      {/* Footer */}
+      <Footer />
     </div>
   );
 }

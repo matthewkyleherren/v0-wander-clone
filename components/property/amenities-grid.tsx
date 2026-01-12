@@ -110,7 +110,7 @@ export function AmenitiesGrid({ amenities }: AmenitiesGridProps) {
   const hasMore = amenities.length > 8;
 
   return (
-    <section className="py-10 border-b border-gray-100">
+    <section id="amenities" className="py-10 border-b border-gray-100">
       <h2 className="text-[22px] font-normal mb-2 text-gray-900">
         Hotel-grade amenities
       </h2>

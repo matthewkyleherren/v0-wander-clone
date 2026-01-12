@@ -123,7 +123,7 @@ export function BeforeYouBook({
               open={isOpen}
               onOpenChange={() => toggleItem(id)}
             >
-              <CollapsibleTrigger className="flex items-center justify-between w-full px-5 py-4 bg-white border border-gray-200 rounded-xl hover:border-gray-300 transition-colors text-left shadow-[0_2px_8px_rgba(0,0,0,0.04)] hover:shadow-[0_4px_12px_rgba(0,0,0,0.08)] transition-all">
+              <CollapsibleTrigger className="flex items-center justify-between w-full px-6 py-4 bg-white border border-gray-100 rounded-2xl hover:border-gray-200 transition-all duration-200 text-left shadow-[0_1px_2px_rgba(0,0,0,0.06),0_2px_6px_rgba(0,0,0,0.04)] hover:shadow-[0_2px_4px_rgba(0,0,0,0.08),0_4px_12px_rgba(0,0,0,0.06)]">
                 <div className="flex items-center gap-3">
                   <Icon className="h-5 w-5 text-gray-400 flex-shrink-0" />
                   <span className="text-[15px] font-medium text-gray-900">
@@ -131,12 +131,12 @@ export function BeforeYouBook({
                   </span>
                 </div>
                 {isOpen ? (
-                  <Minus className="h-5 w-5 text-gray-400" />
+                  <Minus className="h-4 w-4 text-gray-400" />
                 ) : (
-                  <Plus className="h-5 w-5 text-gray-400" />
+                  <Plus className="h-4 w-4 text-gray-400" />
                 )}
               </CollapsibleTrigger>
-              <CollapsibleContent className="px-5 pb-4 pt-3 border border-t-0 border-gray-200 rounded-b-xl -mt-2 shadow-[0_2px_8px_rgba(0,0,0,0.04)]">
+              <CollapsibleContent className="px-6 pb-5 pt-3 border border-t-0 border-gray-100 rounded-b-2xl -mt-2 shadow-[0_1px_2px_rgba(0,0,0,0.06),0_2px_6px_rgba(0,0,0,0.04)]">
                 <p className="text-[14px] text-gray-600 leading-relaxed pl-8">
                   {notice.description}
                 </p>
