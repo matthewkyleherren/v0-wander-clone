@@ -1,51 +1,59 @@
-import { Button } from "@/components/ui/button"
-import Link from "next/link"
-import { PlusCircle } from "lucide-react"
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
+import { PlusCircle } from "lucide-react";
 
 async function getProperties() {
   try {
-    const projectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID || "124czkwg"
-    const dataset = process.env.NEXT_PUBLIC_SANITY_DATASET || "properties"
-    const token = process.env.SANITY_API_TOKEN
+    const projectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID || "124czkwg";
+    const dataset = process.env.NEXT_PUBLIC_SANITY_DATASET || "properties";
+    const token = process.env.SANITY_API_TOKEN;
 
-    console.log("[v0] Fetching properties with:", { projectId, dataset, hasToken: !!token })
+    console.log("[v0] Fetching properties with:", {
+      projectId,
+      dataset,
+      hasToken: !!token,
+    });
 
     if (!token) {
-      console.error("[v0] Missing SANITY_API_TOKEN - properties cannot be fetched")
-      return []
+      console.error(
+        "[v0] Missing SANITY_API_TOKEN - properties cannot be fetched",
+      );
+      return [];
     }
 
-    const query = encodeURIComponent('*[_type == "property"] | order(_createdAt desc)')
-    const url = `https://api.sanity.io/v2021-10-21/data/query/${projectId}/${dataset}?query=${query}`
+    const query = encodeURIComponent(
+      '*[_type == "property"] | order(_createdAt desc)',
+    );
+    const url = `https://${projectId}.api.sanity.io/v2021-10-21/data/query/${dataset}?query=${query}`;
 
-    console.log("[v0] Fetching from URL:", url)
+    console.log("[v0] Fetching from URL:", url);
 
     const response = await fetch(url, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
       cache: "no-store",
-    })
+    });
 
-    console.log("[v0] Response status:", response.status)
+    console.log("[v0] Response status:", response.status);
 
     if (!response.ok) {
-      const errorText = await response.text()
-      console.error("[v0] Sanity API error:", errorText)
-      return []
+      const errorText = await response.text();
+      console.error("[v0] Sanity API error:", errorText);
+      return [];
     }
 
-    const data = await response.json()
-    console.log("[v0] Fetched properties count:", data.result?.length || 0)
-    return data.result || []
+    const data = await response.json();
+    console.log("[v0] Fetched properties count:", data.result?.length || 0);
+    return data.result || [];
   } catch (error) {
-    console.error("[v0] Error fetching properties:", error)
-    return []
+    console.error("[v0] Error fetching properties:", error);
+    return [];
   }
 }
 
 export default async function AdminPage() {
-  const properties = await getProperties()
+  const properties = await getProperties();
 
   return (
     <div className="min-h-screen bg-background p-8">
@@ -53,7 +61,9 @@ export default async function AdminPage() {
         <div className="mb-8 flex items-center justify-between">
           <div>
             <h1 className="text-4xl font-bold">Property Admin</h1>
-            <p className="mt-2 text-muted-foreground">Manage your property listings</p>
+            <p className="mt-2 text-muted-foreground">
+              Manage your property listings
+            </p>
           </div>
           <Button asChild>
             <Link href="/admin/new">
@@ -72,15 +82,22 @@ export default async function AdminPage() {
             >
               <div className="aspect-video overflow-hidden">
                 <img
-                  src={property.mainImageUrl || "/placeholder.svg?height=200&width=300"}
+                  src={
+                    property.mainImageUrl ||
+                    "/placeholder.svg?height=200&width=300"
+                  }
                   alt={property.name}
                   className="h-full w-full object-cover transition-transform group-hover:scale-105"
                 />
               </div>
               <div className="p-4">
                 <h3 className="font-semibold">{property.name}</h3>
-                <p className="text-sm text-muted-foreground">{property.location}</p>
-                <p className="mt-2 font-medium">${property.pricePerNight}/night</p>
+                <p className="text-sm text-muted-foreground">
+                  {property.location}
+                </p>
+                <p className="mt-2 font-medium">
+                  ${property.pricePerNight}/night
+                </p>
               </div>
             </Link>
           ))}
@@ -99,5 +116,5 @@ export default async function AdminPage() {
         )}
       </div>
     </div>
-  )
+  );
 }
