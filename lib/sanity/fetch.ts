@@ -72,7 +72,7 @@ export async function getProperties(): Promise<PropertyCard[]> {
       pricePerNight,
       rating,
       reviewCount,
-      mainImageUrl,
+      "mainImageUrl": mainImage.asset->url,
       amenities
     }`;
     const result = await sanityFetch<Record<string, unknown>[]>(query);
@@ -107,8 +107,10 @@ export async function getPropertyBySlug(
       beds,
       bathrooms,
       sqft,
-      mainImageUrl,
-      imageUrls,
+      "mainImageUrl": mainImage.asset->url,
+      "imageUrls": images[]{
+        "url": coalesce(asset->url, url)
+      }.url,
       amenities,
       highlights,
       features,
@@ -178,7 +180,7 @@ export async function getFeaturedProperties(): Promise<PropertyCard[]> {
       pricePerNight,
       rating,
       reviewCount,
-      mainImageUrl,
+      "mainImageUrl": mainImage.asset->url,
       amenities,
       featured
     }`;
@@ -204,7 +206,7 @@ export async function getPropertiesByCategory(
       pricePerNight,
       rating,
       reviewCount,
-      mainImageUrl,
+      "mainImageUrl": mainImage.asset->url,
       amenities,
       featured,
       categories
