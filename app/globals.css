@@ -1,6 +1,5 @@
 @import "tailwindcss";
 @import "tw-animate-css";
-@import "@worldcoin/idkit/styles.css";
 
 @custom-variant dark (&:is(.dark *));
 
