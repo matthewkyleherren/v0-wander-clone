@@ -36,7 +36,7 @@ export function WorkSection() {
           <div>
             <div className="flex items-center justify-between text-xs mb-1">
               <span className="text-foreground font-medium">100+ Mbps</span>
-              <span className="text-muted-foreground">Wander's WiFi</span>
+              <span className="text-muted-foreground">OffGrid's WiFi</span>
             </div>
             <div className="h-1.5 bg-foreground rounded-full" style={{ width: "100%" }} />
           </div>

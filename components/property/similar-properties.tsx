@@ -5,7 +5,7 @@ import { Star, Bed, Users } from "lucide-react"
 const similarProperties = [
   {
     id: 1,
-    name: "Wander Big Sur Coast",
+    name: "OffGrid Big Sur Coast",
     location: "San Simeon, California",
     image: "/big-sur-coast-luxury-home-ocean-cliff.jpg",
     tag: "Summer spots",
@@ -13,11 +13,11 @@ const similarProperties = [
     bedrooms: 5,
     rating: 4.9,
     guests: 12,
-    slug: "wander-big-sur-coast",
+    slug: "offgrid-big-sur-coast",
   },
   {
     id: 2,
-    name: "Wander Encinitas Shores",
+    name: "OffGrid Encinitas Shores",
     location: "Encinitas, California",
     image: "/encinitas-beach-house-modern-coastal.jpg",
     tag: "Summer spots",
@@ -25,11 +25,11 @@ const similarProperties = [
     bedrooms: 5,
     rating: 4.8,
     guests: 10,
-    slug: "wander-encinitas-shores",
+    slug: "offgrid-encinitas-shores",
   },
   {
     id: 3,
-    name: "Wander Malibu Vista",
+    name: "OffGrid Malibu Vista",
     location: "Malibu, California",
     image: "/placeholder.svg?height=400&width=600",
     tag: "Make an offer",
@@ -37,7 +37,7 @@ const similarProperties = [
     bedrooms: 5,
     rating: 5.0,
     guests: 10,
-    slug: "wander-malibu-vista",
+    slug: "offgrid-malibu-vista",
   },
 ]
 
@@ -45,7 +45,7 @@ export function SimilarProperties() {
   return (
     <section className="py-10 bg-muted">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <p className="text-[10px] font-medium text-muted-foreground tracking-wider uppercase mb-1">SIMILAR WANDERS</p>
+        <p className="text-[10px] font-medium text-muted-foreground tracking-wider uppercase mb-1">SIMILAR OFFGRIDS</p>
         <h2 className="text-base font-medium text-foreground mb-6">Guests who liked this property also liked:</h2>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">

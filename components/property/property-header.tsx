@@ -30,7 +30,7 @@ export function PropertyHeader() {
               <span className="hidden sm:inline text-sm">Back</span>
             </Link>
             <Link href="/" className="hidden md:flex items-center">
-              <span className="text-sm font-medium text-foreground">wander</span>
+              <span className="text-sm font-medium text-foreground">offgrid</span>
             </Link>
           </div>
 

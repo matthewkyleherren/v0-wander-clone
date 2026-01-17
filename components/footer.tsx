@@ -12,7 +12,7 @@ const footerLinks = {
   ],
   hosting: [
     { name: "List Your Home", href: "/host" },
-    { name: "Wander Sites", href: "/sites" },
+    { name: "OffGrid Sites", href: "/sites" },
     { name: "Host Resources", href: "/resources" },
     { name: "Community", href: "/community" },
   ],
@@ -125,8 +125,8 @@ export function Footer() {
           <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
             {/* Logo and Copyright */}
             <div className="flex items-center gap-3">
-              <span className="text-sm font-medium text-foreground">wander</span>
-              <span className="text-xs text-muted-foreground">© 2025 Wander. All rights reserved.</span>
+              <span className="text-sm font-medium text-foreground">offgrid</span>
+              <span className="text-xs text-muted-foreground">© 2026 WRK, Inc. All rights reserved.</span>
             </div>
 
             {/* Social Links */}

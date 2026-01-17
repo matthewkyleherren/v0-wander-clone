@@ -13,7 +13,7 @@ const testimonials = [
     image: "/professional-woman-headshot.png",
   },
   {
-    text: "Wander exceeded all our expectations. The home's amenities were state-of-the-art and easy to use. We particularly enjoyed the outdoor space, which was beautifully landscaped and perfect for relaxing.",
+    text: "OffGrid exceeded all our expectations. The home's amenities were state-of-the-art and easy to use. We particularly enjoyed the outdoor space, which was beautifully landscaped and perfect for relaxing.",
     author: "Mark",
     location: "Phoenix, AZ",
     image: "/professional-man-headshot.png",
@@ -41,7 +41,7 @@ export function Testimonials() {
 
   return (
     <section id="testimonials" className="py-6 border-b border-border">
-      <h2 className="text-sm font-medium text-foreground mb-4">Guests love Wander</h2>
+      <h2 className="text-sm font-medium text-foreground mb-4">Guests love OffGrid</h2>
 
       <div className="relative bg-muted rounded-lg p-5">
         <Quote className="h-5 w-5 text-muted-foreground/40 mb-3" />

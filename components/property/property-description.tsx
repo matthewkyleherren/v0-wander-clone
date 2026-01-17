@@ -20,7 +20,7 @@ export function PropertyDescription({ description }: PropertyDescriptionProps) {
       {/* Spring Escapes Tag */}
       <div className="mt-6 inline-flex items-center gap-2 px-4 py-2 bg-accent rounded-full">
         <span className="text-sm font-medium text-accent-foreground">Spring escapes</span>
-        <span className="text-sm text-muted-foreground">Great Wander destinations to explore this spring.</span>
+        <span className="text-sm text-muted-foreground">Great OffGrid destinations to explore this spring.</span>
       </div>
     </section>
   )

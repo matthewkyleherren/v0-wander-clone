@@ -23,10 +23,10 @@ export function MobileRules() {
       <div className="px-4 py-6 border-t border-border">
         <h2 className="text-lg font-medium text-foreground mb-2">Things to know</h2>
         <p className="text-[15px] text-muted-foreground mb-6">
-          Here are some things which you should know before booking Wander Inlet Beach Serenity
+          Here are some things which you should know before booking OffGrid Inlet Beach Serenity
         </p>
 
-        {/* House Rules Card - matching Wander dark card style */}
+        {/* House Rules Card - matching OffGrid dark card style */}
         <div className="bg-muted/40 rounded-2xl overflow-hidden mb-4">
           <div className="px-4 py-3 bg-muted/60">
             <h3 className="text-[11px] font-medium text-muted-foreground uppercase tracking-[0.15em]">HOUSE RULES</h3>

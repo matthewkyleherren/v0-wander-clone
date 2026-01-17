@@ -77,18 +77,15 @@ export const propertySchema = {
       type: "number",
     },
     {
-      name: "mainImage",
-      title: "Main Image",
-      type: "image",
-      options: {
-        hotspot: true,
-      },
+      name: "mainImageUrl",
+      title: "Main Image URL",
+      type: "url",
     },
     {
-      name: "images",
-      title: "Gallery Images",
+      name: "imageUrls",
+      title: "Gallery Image URLs",
       type: "array",
-      of: [{ type: "image", options: { hotspot: true } }],
+      of: [{ type: "url" }],
     },
     {
       name: "featured",
@@ -142,7 +139,7 @@ export const propertySchema = {
           fields: [
             { name: "name", title: "Bedroom Name", type: "string" },
             { name: "beds", title: "Bed Configuration", type: "string" },
-            { name: "image", title: "Bedroom Image", type: "image" },
+            { name: "imageUrl", title: "Bedroom Image URL", type: "url" },
           ],
         },
       ],
