@@ -7,9 +7,20 @@ const globalForPrisma = globalThis as unknown as {
 }
 
 function createPrismaClient() {
-  const sql = neon(process.env.DATABASE_URL!)
+  const url = process.env.DATABASE_URL
+
+  if (!url) {
+    throw new Error(
+      "DATABASE_URL is not set. Please define it in your environment (e.g. .env or .env.local).",
+    )
+  }
+
+  const sql = neon(url)
   const adapter = new PrismaNeon(sql)
-  return new PrismaClient({ adapter })
+
+  return new PrismaClient({
+    adapter,
+  })
 }
 
 export const prisma = globalForPrisma.prisma ?? createPrismaClient()

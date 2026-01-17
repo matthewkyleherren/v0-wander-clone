@@ -26,6 +26,11 @@ interface CossuiPropertyPageProps {
 }
 
 export function CossuiPropertyPage({ displayData }: CossuiPropertyPageProps) {
+  const ratingValue =
+    typeof displayData.rating === "number"
+      ? displayData.rating
+      : Number(displayData.rating) || 0;
+
   return (
     <div className="min-h-screen bg-background text-foreground flex flex-col">
       <Header />
@@ -50,7 +55,7 @@ export function CossuiPropertyPage({ displayData }: CossuiPropertyPageProps) {
             <p>
               Rating:{" "}
               <span className="font-semibold">
-                {displayData.rating.toFixed(1)}
+                {ratingValue.toFixed(1)}
               </span>{" "}
               ({displayData.reviewCount} reviews)
             </p>
@@ -158,8 +163,7 @@ export function CossuiPropertyPage({ displayData }: CossuiPropertyPageProps) {
                 Snapshot
               </p>
               <p className="font-medium">
-                {displayData.rating.toFixed(1)} · {displayData.reviewCount}{" "}
-                reviews
+                {ratingValue.toFixed(1)} · {displayData.reviewCount} reviews
               </p>
               <p className="text-muted-foreground">
                 Check-in {displayData.checkInTime} · Check-out{" "}

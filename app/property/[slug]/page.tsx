@@ -1,27 +1,7 @@
 import { getPropertyBySlug } from "@/lib/sanity/fetch";
-import { Header } from "@/components/header";
-import { Footer } from "@/components/footer";
-import { StickyNavBar } from "@/components/property/sticky-nav-bar";
-import { PropertyHero } from "@/components/property/property-hero";
-import { ImageGalleryNew } from "@/components/property/image-gallery-new";
-import {
-  QuickStats,
-  QuickStatsMobile,
-} from "@/components/property/quick-stats";
-import { HighlightTags } from "@/components/property/highlight-tags";
-import { GuaranteeSection } from "@/components/property/guarantee-section";
-import { AboutSection } from "@/components/property/about-section";
-import { VideoTourCarousel } from "@/components/property/video-tour-carousel";
-import { AmenitiesGrid } from "@/components/property/amenities-grid";
-import { SleepingSectionNew } from "@/components/property/sleeping-section-new";
-import { LocationSectionNew } from "@/components/property/location-section-new";
-import { CalendarSection } from "@/components/property/calendar-section";
-import { ReviewsSection } from "@/components/property/reviews-section";
-import { ThingsToKnow } from "@/components/property/things-to-know";
-import { BeforeYouBook } from "@/components/property/before-you-book";
-import { ConciergeSection } from "@/components/property/concierge-section";
-import { BookingSidebarNew } from "@/components/property/booking-sidebar-new";
-import { StickyBookingBarNew } from "@/components/property/sticky-booking-bar-new";
+import { ClassicPropertyPage } from "@/components/property/classic-property-page";
+import { CossuiPropertyPage } from "@/components/cossui/property-page";
+import { getActiveUi } from "@/lib/ui-config";
 
 const fallbackPropertyData = {
   name: "Inlet Beach Serenity",
