@@ -62,7 +62,7 @@ export default function LoginPage() {
 
   const handleWorldIdVerify = async (proof: ISuccessResult) => {
     setError("")
-    const res = await fetch("/api/world-id/verify", {
+    const res = await fetch("/api/auth/world-id/verify", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
