@@ -3,9 +3,14 @@
 import { useState } from "react"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
+import dynamic from "next/dynamic"
 import { signIn } from "@/lib/auth/client"
-import { IDKitWidget, ISuccessResult, VerificationLevel } from "@worldcoin/idkit"
 import { Button } from "@/components/ui/button"
+
+const WorldIdButton = dynamic(
+  () => import("@/components/world-id-button").then((m) => m.WorldIdButton),
+  { ssr: false },
+)
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import {
@@ -117,31 +122,7 @@ export default function LoginPage() {
             Continue with Google
           </Button>
 
-          <IDKitWidget
-            app_id={process.env.NEXT_PUBLIC_WORLD_ID_APP_ID as string}
-            action={process.env.NEXT_PUBLIC_WORLD_ID_ACTION_ID as string}
-            onSuccess={handleWorldIdSuccess}
-            handleVerify={handleWorldIdVerify}
-            verification_level={VerificationLevel.Orb}
-          >
-            {({ open }) => (
-              <Button
-                variant="outline"
-                className="w-full"
-                type="button"
-                onClick={open}
-              >
-                <svg
-                  className="mr-2 h-4 w-4"
-                  viewBox="0 0 24 24"
-                  fill="currentColor"
-                >
-                  <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm0-14c-3.31 0-6 2.69-6 6s2.69 6 6 6 6-2.69 6-6-2.69-6-6-6zm0 10c-2.21 0-4-1.79-4-4s1.79-4 4-4 4 1.79 4 4-1.79 4-4 4z" />
-                </svg>
-                Continue with World ID
-              </Button>
-            )}
-          </IDKitWidget>
+          <WorldIdButton />
         </div>
 
         <div className="relative">

@@ -15,8 +15,8 @@ export const worldIdAuthPlugin = (): BetterAuthPlugin => {
         async (ctx) => {
           const proof = (await ctx.request.json()) as ISuccessResult
 
-          const appId = process.env.WORLD_ID_APP_ID
-          const action = process.env.WORLD_ID_ACTION_ID
+          const appId = process.env.WORLDCOIN_APP_ID
+          const action = process.env.WORLDCOIN_ACTION_ID
 
           if (!appId || !action) {
             return ctx.json(
