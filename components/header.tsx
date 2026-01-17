@@ -1,9 +1,11 @@
 "use client";
 
-import Link from "next/link";
-import { Menu, X, Sun, Moon, Monitor } from "lucide-react";
-import { useState, useEffect } from "react";
-import { useTheme } from "@/components/theme-provider";
+import Link from "next/link"
+import { Button } from "@/components/ui/button"
+import { Menu, X, Sun, Moon } from "lucide-react"
+import { useState, useEffect } from "react"
+import { useTheme } from "@/components/theme-provider"
+import { UserMenu } from "@/components/user-menu"
 
 export function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -51,66 +53,17 @@ export function Header() {
                 <span className="text-sm font-medium">Wherever</span>
               </button>
 
-              <div className="w-px h-6 bg-gray-300 dark:bg-gray-700"></div>
-
-              <button className="flex items-center gap-2 hover:opacity-70 transition">
-                <svg
-                  className="w-5 h-5 text-gray-600 dark:text-gray-400"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <rect
-                    x="3"
-                    y="4"
-                    width="18"
-                    height="18"
-                    rx="2"
-                    ry="2"
-                    strokeWidth={2}
-                  />
-                  <line x1="16" y1="2" x2="16" y2="6" strokeWidth={2} />
-                  <line x1="8" y1="2" x2="8" y2="6" strokeWidth={2} />
-                  <line x1="3" y1="10" x2="21" y2="10" strokeWidth={2} />
-                </svg>
-                <span className="text-sm font-medium">Whenever</span>
-              </button>
-
-              <div className="w-px h-6 bg-gray-300 dark:bg-gray-700"></div>
-
-              <button className="flex items-center gap-2 hover:opacity-70 transition">
-                <svg
-                  className="w-5 h-5 text-gray-600 dark:text-gray-400"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"
-                  />
-                </svg>
-                <span className="text-sm font-medium">Whoever</span>
-              </button>
-
-              <button className="bg-black dark:bg-white text-white dark:text-black rounded-full p-3 hover:opacity-90 transition">
-                <svg
-                  className="w-5 h-5"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-                  />
-                </svg>
-              </button>
-            </div>
+          {/* Desktop Actions - cleaner button styling */}
+          <div className="hidden md:flex items-center gap-2">
+            {mounted && (
+              <Button variant="ghost" size="icon" onClick={toggleTheme} className="h-8 w-8" aria-label="Toggle theme">
+                {theme === "dark" ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
+              </Button>
+            )}
+            <UserMenu />
+            <Button size="sm" className="text-sm">
+              List your home
+            </Button>
           </div>
 
           {/* Right Side Actions */}
@@ -189,26 +142,8 @@ export function Header() {
                 </svg>
                 List on Wander
               </Link>
-
-              <Link
-                href="/help"
-                className="flex items-center gap-3 px-4 py-2.5 hover:bg-gray-50 dark:hover:bg-gray-900 transition text-sm"
-                onClick={() => setMenuOpen(false)}
-              >
-                <svg
-                  className="w-5 h-5"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-                  />
-                </svg>
-                Help center
+              <Link href="/login" className="text-sm text-muted-foreground py-2 px-2 rounded-md hover:bg-muted">
+                Sign in
               </Link>
             </div>
 
