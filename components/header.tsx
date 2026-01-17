@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button"
 import { Menu, X, Sun, Moon } from "lucide-react"
 import { useState, useEffect } from "react"
 import { useTheme } from "@/components/theme-provider"
+import { UserMenu } from "@/components/user-menu"
 
 export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
@@ -44,9 +45,7 @@ export function Header() {
                 {theme === "dark" ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
               </Button>
             )}
-            <Button variant="ghost" size="sm" className="text-sm">
-              Sign in
-            </Button>
+            <UserMenu />
             <Button size="sm" className="text-sm">
               List your home
             </Button>
@@ -78,7 +77,7 @@ export function Header() {
               <Link href="/app" className="text-sm text-muted-foreground py-2 px-2 rounded-md hover:bg-muted">
                 Get the app
               </Link>
-              <Link href="/signin" className="text-sm text-muted-foreground py-2 px-2 rounded-md hover:bg-muted">
+              <Link href="/login" className="text-sm text-muted-foreground py-2 px-2 rounded-md hover:bg-muted">
                 Sign in
               </Link>
               <Button className="w-full mt-2" size="sm">
