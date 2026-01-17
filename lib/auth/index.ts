@@ -23,23 +23,6 @@ export const auth = betterAuth({
     },
   },
 
-  plugins: [
-    genericOAuth({
-      config: [
-        {
-          providerId: "worldcoin",
-          clientId: process.env.WORLDCOIN_CLIENT_ID!,
-          clientSecret: process.env.WORLDCOIN_CLIENT_SECRET!,
-          // Use OIDC discovery so endpoints stay in sync with World ID
-          discoveryUrl:
-            "https://id.worldcoin.org/.well-known/openid-configuration",
-          scopes: ["openid", "email", "profile"],
-          pkce: true,
-        },
-      ],
-    }),
-  ],
-
   session: {
     expiresIn: 60 * 60 * 24 * 7, // 7 days
     updateAge: 60 * 60 * 24, // 1 day
