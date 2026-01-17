@@ -1,15 +1,14 @@
 "use client";
 
-import Link from "next/link"
-import { Button } from "@/components/ui/button"
-import { Menu, X, Sun, Moon } from "lucide-react"
-import { useState, useEffect } from "react"
-import { useTheme } from "@/components/theme-provider"
-import { UserMenu } from "@/components/user-menu"
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
+import { Menu, X, Sun, Moon, Monitor } from "lucide-react";
+import { useState, useEffect } from "react";
+import { useTheme } from "@/components/theme-provider";
+import { UserMenu } from "@/components/user-menu";
 
 export function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
-  const [themeMenuOpen, setThemeMenuOpen] = useState(false);
   const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
 
@@ -52,18 +51,7 @@ export function Header() {
                 </svg>
                 <span className="text-sm font-medium">Wherever</span>
               </button>
-
-          {/* Desktop Actions - cleaner button styling */}
-          <div className="hidden md:flex items-center gap-2">
-            {mounted && (
-              <Button variant="ghost" size="icon" onClick={toggleTheme} className="h-8 w-8" aria-label="Toggle theme">
-                {theme === "dark" ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
-              </Button>
-            )}
-            <UserMenu />
-            <Button size="sm" className="text-sm">
-              List your home
-            </Button>
+            </div>
           </div>
 
           {/* Right Side Actions */}
@@ -74,6 +62,8 @@ export function Header() {
             >
               List on Wander
             </Link>
+
+            <UserMenu />
 
             <button
               onClick={() => setMenuOpen(!menuOpen)}
@@ -95,9 +85,13 @@ export function Header() {
               <p className="text-sm font-semibold mb-1">
                 Unlock access and rewards
               </p>
-              <button className="w-full bg-black dark:bg-white text-white dark:text-black rounded-full px-6 py-2.5 text-sm font-medium hover:opacity-90 transition">
+              <Link
+                href="/login"
+                className="block w-full bg-black dark:bg-white text-white dark:text-black rounded-full px-6 py-2.5 text-sm font-medium hover:opacity-90 transition text-center"
+                onClick={() => setMenuOpen(false)}
+              >
                 Log in or sign up
-              </button>
+              </Link>
             </div>
 
             <div className="py-2">
@@ -141,9 +135,6 @@ export function Header() {
                   />
                 </svg>
                 List on Wander
-              </Link>
-              <Link href="/login" className="text-sm text-muted-foreground py-2 px-2 rounded-md hover:bg-muted">
-                Sign in
               </Link>
             </div>
 
