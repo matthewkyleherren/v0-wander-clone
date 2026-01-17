@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { PlusCircle } from "lucide-react";
+import { getActiveUi, setActiveUi, type UiVariant } from "@/lib/ui-config";
 
 // Force dynamic rendering for this page
 export const dynamic = "force-dynamic";
@@ -55,17 +56,35 @@ async function getProperties() {
   }
 }
 
+async function getAdminData() {
+  const [properties, activeUi] = await Promise.all([
+    getProperties(),
+    getActiveUi(),
+  ]);
+
+  return { properties, activeUi };
+}
+
+async function updateUiAction(formData: FormData) {
+  "use server";
+
+  const value = formData.get("uiVariant");
+  if (value === "classic" || value === "cossui") {
+    await setActiveUi(value as UiVariant);
+  }
+}
+
 export default async function AdminPage() {
-  const properties = await getProperties();
+  const { properties, activeUi } = await getAdminData();
 
   return (
     <div className="min-h-screen bg-background p-8">
-      <div className="mx-auto max-w-7xl">
-        <div className="mb-8 flex items-center justify-between">
+      <div className="mx-auto max-w-7xl space-y-8">
+        <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
           <div>
             <h1 className="text-4xl font-bold">Property Admin</h1>
             <p className="mt-2 text-muted-foreground">
-              Manage your property listings
+              Manage your property listings and site settings
             </p>
           </div>
           <Button asChild>
@@ -74,6 +93,41 @@ export default async function AdminPage() {
               Add Property
             </Link>
           </Button>
+        </div>
+
+        {/* UI variant selector */}
+        <div className="rounded-lg border bg-card p-4 md:p-6">
+          <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+            <div>
+              <h2 className="text-lg font-semibold">Public site UI</h2>
+              <p className="text-sm text-muted-foreground">
+                Choose which interface is active for guests. Only one UI can be
+                active at a time.
+              </p>
+              <p className="mt-2 text-xs text-muted-foreground">
+                Current UI:{" "}
+                <span className="font-medium">
+                  {activeUi === "cossui" ? "CoSSUI (dashboard-style)" : "Classic OffGrid"}
+                </span>
+              </p>
+            </div>
+            <form
+              action={updateUiAction}
+              className="flex flex-col gap-3 md:flex-row md:items-center"
+            >
+              <select
+                name="uiVariant"
+                defaultValue={activeUi}
+                className="w-full md:w-52 rounded-md border border-input bg-background px-3 py-2 text-sm shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+              >
+                <option value="classic">Classic OffGrid UI</option>
+                <option value="cossui">CoSSUI-inspired UI</option>
+              </select>
+              <Button type="submit" size="sm" className="w-full md:w-auto">
+                Update UI
+              </Button>
+            </form>
+          </div>
         </div>
 
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
