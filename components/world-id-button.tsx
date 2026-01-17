@@ -34,8 +34,8 @@ export function WorldIdButton() {
   }
 
   // If env vars are missing, render a disabled button instead of crashing.
-  const appId = process.env.NEXT_PUBLIC_WORLD_ID_APP_ID
-  const actionId = process.env.NEXT_PUBLIC_WORLD_ID_ACTION_ID
+  const appId = process.env.NEXT_PUBLIC_WORLDCOIN_APP_ID
+  const actionId = process.env.NEXT_PUBLIC_WORLDCOIN_ACTION_ID
 
   if (!appId || !actionId || !mounted) {
     return (
