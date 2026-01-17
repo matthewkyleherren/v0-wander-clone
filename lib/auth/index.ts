@@ -1,7 +1,7 @@
 import { betterAuth } from "better-auth"
 import { prismaAdapter } from "better-auth/adapters/prisma"
-import { genericOAuth } from "better-auth/plugins"
 import { prisma } from "@/lib/db"
+import { worldIdAuthPlugin } from "@/lib/auth/world-id-plugin"
 
 export const auth = betterAuth({
   secret: process.env.BETTER_AUTH_SECRET,
@@ -30,25 +30,11 @@ export const auth = betterAuth({
           providerId: "worldcoin",
           clientId: process.env.WORLDCOIN_CLIENT_ID!,
           clientSecret: process.env.WORLDCOIN_CLIENT_SECRET!,
-          authorizationUrl: "https://id.worldcoin.org/authorize",
-          tokenUrl: "https://id.worldcoin.org/token",
-          scopes: ["openid", "profile"],
+          // Use OIDC discovery so endpoints stay in sync with World ID
+          discoveryUrl:
+            "https://id.worldcoin.org/.well-known/openid-configuration",
+          scopes: ["openid", "email", "profile"],
           pkce: true,
-          getUserInfo: async ({ accessToken }) => {
-            const response = await fetch("https://id.worldcoin.org/userinfo", {
-              headers: {
-                Authorization: `Bearer ${accessToken}`,
-              },
-            })
-            const data = await response.json()
-            return {
-              id: data.sub,
-              email: data.email,
-              name: data.name,
-              image: data.picture,
-              emailVerified: data.email_verified,
-            }
-          },
         },
       ],
     }),
@@ -68,6 +54,8 @@ export const auth = betterAuth({
     "http://localhost:3000",
     /^http:\/\/192\.168\.\d+\.\d+:3000$/,
   ],
+
+  plugins: [worldIdAuthPlugin()],
 })
 
 export type Session = typeof auth.$Infer.Session
