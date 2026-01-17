@@ -1,6 +1,5 @@
 import { betterAuth } from "better-auth"
 import { prismaAdapter } from "better-auth/adapters/prisma"
-import { genericOAuth } from "better-auth/plugins"
 import { prisma } from "@/lib/db"
 
 export const auth = betterAuth({
@@ -22,37 +21,6 @@ export const auth = betterAuth({
       clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
     },
   },
-
-  plugins: [
-    genericOAuth({
-      config: [
-        {
-          providerId: "worldcoin",
-          clientId: process.env.WORLDCOIN_CLIENT_ID!,
-          clientSecret: process.env.WORLDCOIN_CLIENT_SECRET!,
-          authorizationUrl: "https://id.worldcoin.org/authorize",
-          tokenUrl: "https://id.worldcoin.org/token",
-          scopes: ["openid", "profile"],
-          pkce: true,
-          getUserInfo: async ({ accessToken }) => {
-            const response = await fetch("https://id.worldcoin.org/userinfo", {
-              headers: {
-                Authorization: `Bearer ${accessToken}`,
-              },
-            })
-            const data = await response.json()
-            return {
-              id: data.sub,
-              email: data.email,
-              name: data.name,
-              image: data.picture,
-              emailVerified: data.email_verified,
-            }
-          },
-        },
-      ],
-    }),
-  ],
 
   session: {
     expiresIn: 60 * 60 * 24 * 7, // 7 days
