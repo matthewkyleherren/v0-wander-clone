@@ -1,11 +1,17 @@
 "use client"
 
+import { useEffect, useState } from "react"
 import { IDKitWidget, ISuccessResult, VerificationLevel } from "@worldcoin/idkit"
 import { useRouter } from "next/navigation"
 import { Button } from "@/components/ui/button"
 
 export function WorldIdButton() {
   const router = useRouter()
+  const [mounted, setMounted] = useState(false)
+
+  useEffect(() => {
+    setMounted(true)
+  }, [])
 
   const handleWorldIdVerify = async (proof: ISuccessResult) => {
     const res = await fetch("/api/auth/world-id/verify", {
@@ -31,7 +37,7 @@ export function WorldIdButton() {
   const appId = process.env.NEXT_PUBLIC_WORLD_ID_APP_ID
   const actionId = process.env.NEXT_PUBLIC_WORLD_ID_ACTION_ID
 
-  if (!appId || !actionId) {
+  if (!appId || !actionId || !mounted) {
     return (
       <Button variant="outline" className="w-full" type="button" disabled>
         Continue with World ID
