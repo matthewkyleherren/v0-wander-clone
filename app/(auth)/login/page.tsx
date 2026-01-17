@@ -4,6 +4,7 @@ import { useState } from "react"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
 import { signIn } from "@/lib/auth/client"
+import { IDKitWidget, ISuccessResult, VerificationLevel } from "@worldcoin/idkit"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
@@ -59,16 +60,26 @@ export default function LoginPage() {
     }
   }
 
-  const handleWorldcoinLogin = async () => {
+  const handleWorldIdVerify = async (proof: ISuccessResult) => {
     setError("")
-    try {
-      await signIn.oauth2({
-        providerId: "worldcoin",
-        callbackURL: "/",
-      })
-    } catch {
-      setError("Failed to sign in with World ID")
+    const res = await fetch("/api/world-id/verify", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(proof),
+    })
+
+    if (!res.ok) {
+      const data = await res.json().catch(() => null)
+      throw new Error(data?.error || "Verification failed")
     }
+  }
+
+  const handleWorldIdSuccess = () => {
+    // At this point the proof has been verified server‑side.
+    // You can decide how to use this (e.g. mark the current user as World ID verified).
+    router.refresh()
   }
 
   return (
@@ -105,17 +116,32 @@ export default function LoginPage() {
             </svg>
             Continue with Google
           </Button>
-          <Button
-            variant="outline"
-            className="w-full"
-            onClick={handleWorldcoinLogin}
-            type="button"
+
+          <IDKitWidget
+            app_id={process.env.NEXT_PUBLIC_WORLD_ID_APP_ID as string}
+            action={process.env.NEXT_PUBLIC_WORLD_ID_ACTION_ID as string}
+            onSuccess={handleWorldIdSuccess}
+            handleVerify={handleWorldIdVerify}
+            verification_level={VerificationLevel.Orb}
           >
-            <svg className="mr-2 h-4 w-4" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm0-14c-3.31 0-6 2.69-6 6s2.69 6 6 6 6-2.69 6-6-2.69-6-6-6zm0 10c-2.21 0-4-1.79-4-4s1.79-4 4-4 4 1.79 4 4-1.79 4-4 4z" />
-            </svg>
-            Continue with World ID
-          </Button>
+            {({ open }) => (
+              <Button
+                variant="outline"
+                className="w-full"
+                type="button"
+                onClick={open}
+              >
+                <svg
+                  className="mr-2 h-4 w-4"
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                >
+                  <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm0-14c-3.31 0-6 2.69-6 6s2.69 6 6 6 6-2.69 6-6-2.69-6-6-6zm0 10c-2.21 0-4-1.79-4-4s1.79-4 4-4 4 1.79 4 4-1.79 4-4 4z" />
+                </svg>
+                Continue with World ID
+              </Button>
+            )}
+          </IDKitWidget>
         </div>
 
         <div className="relative">
